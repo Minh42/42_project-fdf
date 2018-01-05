@@ -3,154 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 13:13:24 by minh              #+#    #+#             */
-/*   Updated: 2017/12/23 17:07:37 by minh             ###   ########.fr       */
+/*   Updated: 2018/01/05 17:34:56 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int     key_hook(int keycode, t_env *e)
+void ft_print_list(t_list *liste)
 {
-    printf("key event %d\n", keycode);
-    if (keycode == 53)
-        exit(0);
-    return (0);
-}
-
-t_list	*ft_create_elem(void *data)
-{
-	t_list *elem;
-
-	elem = (t_list*)malloc(sizeof(t_list));
-	if (elem)
-	{
-		elem->next = 0;
-		elem->data = data;
-	}
-	return (elem);
-}
-
-void	ft_list_push_back(t_list **begin_list, void *data)
-{
-	t_list *list;
-
-	list = *begin_list;
-	if (! list)
-	{
-		list = ft_create_elem(data);
-	}
-	else
-	{
-		while ((list)->next)
-		{
-			list = list->next;
-		}
-		list->next = ft_create_elem(data);
-	}
-}
-
-void	ft_list_foreach(t_list *list, void (*f)(void*))
-{
-	while (list)
-	{
-		f(list->data);
-		list = list->next;
-	}
-}
-
-void    print_list(t_list *list)
-{
-    t_elem *elem;
-    
-    elem = list -> first;
-    while (elem)
+    t_list *tmp = liste;
+    if (tmp == NULL)
     {
-        printf("%d\n", elem->data);
-        elem = elem -> next;
+        ft_putstr("erreur");
+    }
+    while (tmp)
+    {
+        printf("%s", tmp->content);
+        tmp = tmp->next;
     }
 }
+
 
 /*
-void    draw_form(void *mlx, void *win, t_point *coord)
+
+void    draw_form(void *mlx, void *win) 
 {
-    // int x;
-    // int y;
-    // int nb_col;
-    // int nb_ligne;
-
-    // créer un rectangle en parcourant de gauche à droite
-    //y = 50;
-    //nb_ligne = 150;
-    while (y <= y2)
-    {
-        //x = 50;
-        //nb_col = 400;
-        while (x < x2)
-        {      
-            if (x == 100 || y == 100)
-                mlx_pixel_put(mlx, win, x, y, 0x0000FFFF);
-            if (y == y2)
-                mlx_pixel_put(mlx, win, x, y, 0x0000FFFF);
-            x++;
-        }
-            if (x == x2)
-                mlx_pixel_put(mlx, win, x, y, 0x0000FFFF);
-        y++;
-    }
-}
-*/
-
-void    draw_grid(void *param)
-{
-    int x;
-    int x2;
-    int y;
-    int y2;
-    int i;
-    int j;
-    //int k;
-    t_list *coord;
-    
-    x = 100;
-    x2 = 2000;
-    y = 100;
-    y2 = 1200;
-    i = (x2 - x) / 19;
-    j = (y2 - y) / 11;
-    
-    if (((coord = (t_list*)malloc(sizeof(t_list))) == NULL) ||
-	(coord->data = (t_point*)malloc(sizeof(t_point) * 4)) == NULL)
-		return (NULL);
-
-    coord->data.x = x;
-    coord->data.x2 = x + i;
-    coord->data.y = x;
-    coord->data.y2 = x + j;
-
-    ft_create_elem(t_point *coord);
-    print_list(&coord);
-        
-         
-    /*
-    while (y <= y2)
-    {
-        while (x < x2)
-        {
-            ft_list_foreach()
-            x = x + i;
-        }
-        y = y + j;
-    }
-    */
 
 }
 
 int     expose_hook(t_env *e)
 {
-    draw_grid(t_env *e);
+    draw_form(e->mlx, e->win);
     return (0);
 }
 
@@ -160,17 +46,69 @@ int     mouse_hook(int button, int x, int y, t_env *e)
     return (0);
 }
 
+int     key_hook(int keycode, t_env *e)
+{
+    printf("key event %d\n", keycode);
+    if (keycode == 53)
+        exit(0);
+    return (0);
+}
+
 int     main()
 {
     t_env   e;
 
     e.mlx = mlx_init();
-    e.win = mlx_new_window(e.mlx, 1280, 1024, "mlx 42");
+    e.win = mlx_new_window(e.mlx, WIN_WIDTH, WIN_HEIGHT, "mlx 42");
     mlx_expose_hook(e.win, expose_hook, &e);
     mlx_key_hook(e.win, key_hook, &e);
     mlx_mouse_hook(e.win, mouse_hook, &e);
-    mlx_loop(e.mlx) ; //ne rend pas la main il faut appeler exit lorsqu'on appuie sur une touche pour fermer la fenetre
+    mlx_loop(e.mlx);
     return (0);
 }
 
-// changer la couleur en fonction des coordonnées
+*/
+
+
+
+
+
+
+
+
+
+int		main(int argc, char **argv)
+{
+    int		fd;
+    char	*line;
+    t_list  *list = NULL;
+
+	if (argc != 2)
+		ft_putstr("too many or too few arguments\n");
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+	{
+		ft_putstr("open() failed\n");
+    }
+    if ((list = (t_list*)malloc(sizeof(t_list))) == NULL)
+        return (-1);
+    if (list)
+    {
+        list->content = 0;
+        list->next = NULL;
+    }
+	while (get_next_line(fd, &line) > 0)
+	{
+
+        ft_list_push_back(&list, line);
+
+    }
+    list = ft_list_last(list);
+    ft_putstr(list->content);
+	free(line);
+	if (close(fd) == -1)
+	{
+		ft_putstr("close() failed\n");
+	}
+	return (0);
+}
