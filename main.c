@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 13:13:24 by minh              #+#    #+#             */
-/*   Updated: 2018/01/05 17:34:56 by mpham            ###   ########.fr       */
+/*   Updated: 2018/01/09 22:17:51 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void ft_print_list(t_list *liste)
+/*
+void ft_print_list(t_list *list)
 {
-    t_list *tmp = liste;
+    t_list *tmp = list;
     if (tmp == NULL)
     {
         ft_putstr("erreur");
@@ -25,6 +26,7 @@ void ft_print_list(t_list *liste)
         tmp = tmp->next;
     }
 }
+*/
 
 
 /*
@@ -70,10 +72,44 @@ int     main()
 */
 
 
-
-
-
-
+t_list *ft_read_and_stock(char *line)
+{
+    int         i;
+    int         j;
+    int         x;
+    static int  y;
+    int         z;
+    char        *str;
+    t_list      *list;
+    
+    i = 0;
+    x = 0;
+    y = 0;
+    z = 0;
+    str = *ft_strsplit(line, ' ');
+    ft_putstr(str);
+    if (((list = (t_list*)malloc(sizeof(t_list))) == NULL) ||
+	(list->content = (t_point*)malloc(sizeof(t_point) * 4)) == NULL)
+		return (NULL);
+    while (str[i][j] != '\0')
+    {
+        
+        list->content[i][j].x = x;
+        // ft_putnbr(list->content[i].x);
+        // ft_putchar('\n');
+        list->content[i][j].y = y;
+        // ft_putnbr(list->content[i].y);
+        // ft_putchar('\n');
+        list->content[i][j].z = str[i];
+        // ft_putnbr(list->content[i].z);
+        //list->content[i].hex
+        i++;
+        j++;
+        x++;
+    }
+    y++;
+    return (list);
+}
 
 
 
@@ -90,6 +126,7 @@ int		main(int argc, char **argv)
 	{
 		ft_putstr("open() failed\n");
     }
+    /*
     if ((list = (t_list*)malloc(sizeof(t_list))) == NULL)
         return (-1);
     if (list)
@@ -97,14 +134,21 @@ int		main(int argc, char **argv)
         list->content = 0;
         list->next = NULL;
     }
+    */
 	while (get_next_line(fd, &line) > 0)
 	{
-
-        ft_list_push_back(&list, line);
-
+        //ft_list_push_back(&list, line);
+        list = ft_read_and_stock(line);
     }
-    list = ft_list_last(list);
-    ft_putstr(list->content);
+    //list = ft_read_and_stock(list);
+    //list = ft_list_last(list);
+    // ft_putnbr(list->content[0].x);
+    // ft_putnbr(list->content[0].y);
+    // ft_putnbr(list->content[0].z);
+    // ft_putchar('\n');
+    // ft_putnbr(list->content[1].y);
+    // ft_putchar('\n');
+    // ft_putnbr(list->content[1].z);
 	free(line);
 	if (close(fd) == -1)
 	{
