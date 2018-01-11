@@ -6,13 +6,12 @@
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 13:13:24 by minh              #+#    #+#             */
-/*   Updated: 2018/01/09 22:17:51 by minh             ###   ########.fr       */
+/*   Updated: 2018/01/11 14:50:31 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-/*
 void ft_print_list(t_list *list)
 {
     t_list *tmp = list;
@@ -22,11 +21,14 @@ void ft_print_list(t_list *list)
     }
     while (tmp)
     {
-        printf("%s", tmp->content);
+        printf("%d", ((t_point *)(tmp->content))->x);
+        printf("%d", ((t_point *)(tmp->content))->y);
+        printf("%d", ((t_point *)(tmp->content))->z);
         tmp = tmp->next;
+
     }
 }
-*/
+
 
 
 /*
@@ -71,53 +73,68 @@ int     main()
 
 */
 
+void afficher_tab(char **str)
+{
+    int i;
+    
+    i = 0;
+    while(str[i] != '\0')
+    {
+        ft_putchar(str[i][0]);
+        i++;
+    }
+    ft_putchar('\n');
+}
 
-t_list *ft_read_and_stock(char *line)
+t_list **ft_read_and_stock(t_list **list, char *line)
 {
     int         i;
-    int         j;
     int         x;
-    static int  y;
-    int         z;
-    char        *str;
-    t_list      *list;
+    static int  y = 0;
+    char        **str;
     
     i = 0;
     x = 0;
-    y = 0;
-    z = 0;
-    str = *ft_strsplit(line, ' ');
-    ft_putstr(str);
-    if (((list = (t_list*)malloc(sizeof(t_list))) == NULL) ||
-	(list->content = (t_point*)malloc(sizeof(t_point) * 4)) == NULL)
-		return (NULL);
-    while (str[i][j] != '\0')
+    str = ft_strsplit(line, ' ');
+    afficher_tab(str);
+    while (str[i] != '\0')
     {
-        
-        list->content[i][j].x = x;
-        // ft_putnbr(list->content[i].x);
-        // ft_putchar('\n');
-        list->content[i][j].y = y;
-        // ft_putnbr(list->content[i].y);
-        // ft_putchar('\n');
-        list->content[i][j].z = str[i];
-        // ft_putnbr(list->content[i].z);
-        //list->content[i].hex
+        if ((*list = (t_list*)malloc(sizeof(t_list))) == NULL)
+		    exit(1);
+        if (((*list)->content = (t_point*)malloc(sizeof(t_point) * 4)) == NULL)
+		    exit(1);
+        ((t_point *)(*list)->content)->x = x;
+        ft_putstr("x = ");
+        ft_putnbr(((t_point *)(*list)->content)->x);
+        ft_putchar('\n');
+        ((t_point *)(*list)->content)->y = y;
+        ft_putstr("y = ");
+        ft_putnbr(((t_point *)(*list)->content)->y);
+        ft_putchar('\n');
+        ((t_point *)(*list)->content)->z = ft_getnbr(&str[i][0]);
+        ft_putstr("z = ");
+        ft_putnbr(((t_point *)(*list)->content)->z);
+        ft_putchar('\n');
         i++;
-        j++;
         x++;
+        // ft_putstr("hello");
+        //list = list->next;
+        // ft_putstr("hello");
+        // ft_putchar('C');
+        list = &((*list)->next);
+        //ft_putchar('D');
     }
+    *list = NULL;
     y++;
     return (list);
 }
-
-
 
 int		main(int argc, char **argv)
 {
     int		fd;
     char	*line;
-    t_list  *list = NULL;
+    t_list  *list;
+    t_list  **tmp;
 
 	if (argc != 2)
 		ft_putstr("too many or too few arguments\n");
@@ -126,29 +143,12 @@ int		main(int argc, char **argv)
 	{
 		ft_putstr("open() failed\n");
     }
-    /*
-    if ((list = (t_list*)malloc(sizeof(t_list))) == NULL)
-        return (-1);
-    if (list)
-    {
-        list->content = 0;
-        list->next = NULL;
-    }
-    */
+    tmp = &list;
 	while (get_next_line(fd, &line) > 0)
 	{
-        //ft_list_push_back(&list, line);
-        list = ft_read_and_stock(line);
+        tmp = ft_read_and_stock(tmp, line);
     }
-    //list = ft_read_and_stock(list);
-    //list = ft_list_last(list);
-    // ft_putnbr(list->content[0].x);
-    // ft_putnbr(list->content[0].y);
-    // ft_putnbr(list->content[0].z);
-    // ft_putchar('\n');
-    // ft_putnbr(list->content[1].y);
-    // ft_putchar('\n');
-    // ft_putnbr(list->content[1].z);
+    ft_print_list(list);
 	free(line);
 	if (close(fd) == -1)
 	{
