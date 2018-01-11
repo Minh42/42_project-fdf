@@ -6,7 +6,7 @@
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 13:13:24 by minh              #+#    #+#             */
-/*   Updated: 2018/01/11 14:50:31 by minh             ###   ########.fr       */
+/*   Updated: 2018/01/11 22:01:38 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void ft_print_list(t_list *list)
         printf("%d", ((t_point *)(tmp->content))->x);
         printf("%d", ((t_point *)(tmp->content))->y);
         printf("%d", ((t_point *)(tmp->content))->z);
+        //printf("%s", ((t_point *)(tmp->content))->color);
         tmp = tmp->next;
 
     }
@@ -89,14 +90,15 @@ void afficher_tab(char **str)
 t_list **ft_read_and_stock(t_list **list, char *line)
 {
     int         i;
+    int         j;
     int         x;
     static int  y = 0;
     char        **str;
     
     i = 0;
+    j = 0;
     x = 0;
     str = ft_strsplit(line, ' ');
-    afficher_tab(str);
     while (str[i] != '\0')
     {
         if ((*list = (t_list*)malloc(sizeof(t_list))) == NULL)
@@ -104,25 +106,54 @@ t_list **ft_read_and_stock(t_list **list, char *line)
         if (((*list)->content = (t_point*)malloc(sizeof(t_point) * 4)) == NULL)
 		    exit(1);
         ((t_point *)(*list)->content)->x = x;
-        ft_putstr("x = ");
-        ft_putnbr(((t_point *)(*list)->content)->x);
-        ft_putchar('\n');
+        // ft_putstr("x = ");
+        // ft_putnbr(((t_point *)(*list)->content)->x);
+        // ft_putchar('\n');
         ((t_point *)(*list)->content)->y = y;
-        ft_putstr("y = ");
-        ft_putnbr(((t_point *)(*list)->content)->y);
-        ft_putchar('\n');
+        // ft_putstr("y = ");
+        // ft_putnbr(((t_point *)(*list)->content)->y);
+        // ft_putchar('\n');
         ((t_point *)(*list)->content)->z = ft_getnbr(&str[i][0]);
-        ft_putstr("z = ");
-        ft_putnbr(((t_point *)(*list)->content)->z);
-        ft_putchar('\n');
+        if (ft_strchr(str[i], ',')) 
+        {
+            ((t_point *)(*list)->content)->color = &str[i][2];
+            ft_putstr("color = ");
+            ft_putstr(((t_point *)(*list)->content)->color);
+        }
+        else 
+        {
+            ((t_point *)(*list)->content)->color = "0xFFFFFF";
+            ft_putstr("color = ");
+            ft_putstr(((t_point *)(*list)->content)->color);
+        }
+        /*
+        if (ft_strchr(str[i], ',')) 
+		{
+            ((t_point *)(*list)->content)->z = ft_getnbr(&str[i][0]);
+			j = 0;
+			while (str[i][j] != '\0')
+			{
+				if (str[i][j] == ',')
+				{
+                    ((t_point *)(*list)->content)->color = &str[i][j + 1];
+					ft_putstr("color = ");
+                    ft_putstr(((t_point *)(*list)->content)->color);
+					ft_putchar('\n');
+				}
+				j++;
+			}
+		}
+        */
+
+        // ft_putstr("z = ");
+        // ft_putnbr(((t_point *)(*list)->content)->z);
+        // ft_putchar('\n');
+        // ft_putstr("color = ");
+        // ft_putstr(((t_point *)(*list)->content)->color);
+        // ft_putchar('\n');
         i++;
         x++;
-        // ft_putstr("hello");
-        //list = list->next;
-        // ft_putstr("hello");
-        // ft_putchar('C');
-        list = &((*list)->next);
-        //ft_putchar('D');
+        list = &(*list)->next;
     }
     *list = NULL;
     y++;
@@ -134,7 +165,7 @@ int		main(int argc, char **argv)
     int		fd;
     char	*line;
     t_list  *list;
-    t_list  **tmp;
+    t_list  **p_list;
 
 	if (argc != 2)
 		ft_putstr("too many or too few arguments\n");
@@ -143,12 +174,12 @@ int		main(int argc, char **argv)
 	{
 		ft_putstr("open() failed\n");
     }
-    tmp = &list;
+    p_list = &list;
 	while (get_next_line(fd, &line) > 0)
 	{
-        tmp = ft_read_and_stock(tmp, line);
+        p_list = ft_read_and_stock(p_list, line);
     }
-    ft_print_list(list);
+    //ft_print_list(list);
 	free(line);
 	if (close(fd) == -1)
 	{

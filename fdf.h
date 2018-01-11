@@ -6,7 +6,7 @@
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:53:40 by minh              #+#    #+#             */
-/*   Updated: 2018/01/09 21:43:02 by minh             ###   ########.fr       */
+/*   Updated: 2018/01/11 22:00:42 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,6 @@ typedef struct	s_img
 	int			bpp;
 	int			endian;
 }               t_img;
-
-
-
-
 
 typedef struct  s_env
 {
