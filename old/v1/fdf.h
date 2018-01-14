@@ -6,7 +6,7 @@
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:53:40 by minh              #+#    #+#             */
-/*   Updated: 2018/01/14 23:31:46 by minh             ###   ########.fr       */
+/*   Updated: 2018/01/14 22:25:15 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,36 +22,32 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <string.h>
 
-# define WIN_WIDTH 1000
-# define WIN_HEIGHT 1000
-# define TILE_WIDTH 50
-# define TILE_HEIGHT 50
-
-typedef struct	s_point
+typedef struct s_env
 {
-	int 	x;
-	int 	y;
-	int 	z;
-	char	*color;
-}			  	t_point;
+    void *mlx;
+    void *win;
+}              t_env;
 
-typedef struct	s_img
+typedef struct s_point
 {
-	void		*img_ptr;
-	int			*data; 
-	int			size_l;
-	int			bpp;
-	int			endian;
-}               t_img;
+    int         x;
+    int         x2;
+    int         y;
+    int         y2;
+}              t_point;
 
-typedef struct  s_env
+typedef struct s_elem
 {
-    void        *mlx;
-    void        *win;
-	t_list		*list;
-    t_img       img;
-}               t_env;
+    t_point         *data;
+    struct s_elem   *next;
+}              t_elem;
+
+typedef struct s_list
+{
+    t_point         *data;
+    struct s_elem   *first;
+}              t_list;
+
 
 #endif

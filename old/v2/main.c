@@ -6,7 +6,7 @@
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 13:13:24 by minh              #+#    #+#             */
-/*   Updated: 2018/01/14 23:46:17 by minh             ###   ########.fr       */
+/*   Updated: 2018/01/14 18:37:38 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,43 +30,16 @@ void ft_print_list(t_list *list)
     
 }
 
-int     ft_XtoIsoX(int x, int y)
-{
-    int isoX;
-
-    isoX = (x - y) * (TILE_WIDTH / 2);
-    return (isoX);
-}
-
-
-int     ft_YtoIsoY(int x, int y)
-{
-    int isoY;
-
-    isoY = (x + y) * (TILE_HEIGHT / 2);
-    return (isoY);
-}
-
-
-void    draw_form(void *mlx, void *win, t_list *list)
+void    draw_form(void *mlx, void *win) 
 {
     int x;
     int y;
-
-    x = 0;
-    y = 0;
-    while (list)
-    {
-        x = ((t_point *)(*list).content)->x;
-        y = ((t_point *)(*list).content)->y;
-        mlx_pixel_put(mlx, win, ft_XtoIsoX(x, y) + 400, ft_YtoIsoY(x, y) + 20, 0x0000FFFF);
-        list = list->next;
-    }
+   
 }
 
 int     expose_hook(t_env *e)
 {
-    draw_form(e->mlx, e->win, e->list);
+    draw_form(e->mlx, e->win);
     return (0);
 }
 
@@ -86,6 +59,33 @@ int     key_hook(int keycode, t_env *e)
     return (0);
 }
 */
+
+int     main()
+{
+    t_env   e;
+
+    e.mlx = mlx_init();
+    e.win = mlx_new_window(e.mlx, WIN_WIDTH, WIN_HEIGHT, "mlx 42");
+    mlx_expose_hook(e.win, expose_hook, &e);
+    //mlx_key_hook(e.win, key_hook, &e);
+    //mlx_mouse_hook(e.win, mouse_hook, &e);
+    mlx_loop(e.mlx);
+    return (0);
+}
+
+
+void afficher_tab(char **str)
+{
+    int i;
+    
+    i = 0;
+    while(str[i] != '\0')
+    {
+        ft_putchar(str[i][0]);
+        i++;
+    }
+    ft_putchar('\n');
+}
 
 t_list **ft_read_and_stock(t_list **list, char *line)
 {
@@ -121,7 +121,6 @@ int		main(int argc, char **argv)
     char	*line;
     t_list  *list;
     t_list  **p_list;
-    t_env   e;
 
 	if (argc != 2)
 		ft_putstr("too many or too few arguments\n");
@@ -141,12 +140,5 @@ int		main(int argc, char **argv)
 	{
 		ft_putstr("close() failed\n");
 	}
-    e.mlx = mlx_init();
-    e.win = mlx_new_window(e.mlx, WIN_WIDTH, WIN_HEIGHT, "mlx 42");
-    e.list = list;
-    mlx_expose_hook(e.win, expose_hook, &e);
-    //mlx_key_hook(e.win, key_hook, &e);
-    //mlx_mouse_hook(e.win, mouse_hook, &e);
-    mlx_loop(e.mlx);
-    return (0);
+	return (0);
 }
