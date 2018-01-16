@@ -6,7 +6,7 @@
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 13:13:24 by minh              #+#    #+#             */
-/*   Updated: 2018/01/14 23:46:17 by minh             ###   ########.fr       */
+/*   Updated: 2018/01/15 15:34:08 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int     ft_XtoIsoX(int x, int y)
     return (isoX);
 }
 
-
 int     ft_YtoIsoY(int x, int y)
 {
     int isoY;
@@ -47,19 +46,22 @@ int     ft_YtoIsoY(int x, int y)
     return (isoY);
 }
 
-
 void    draw_form(void *mlx, void *win, t_list *list)
 {
     int x;
     int y;
+    int i;
+    int j;
 
     x = 0;
     y = 0;
+    i = (WIN_WIDTH / 2) - (11 * TILE_WIDTH);
+    j = (WIN_HEIGHT / 2) - (19 * TILE_HEIGHT);
     while (list)
     {
         x = ((t_point *)(*list).content)->x;
         y = ((t_point *)(*list).content)->y;
-        mlx_pixel_put(mlx, win, ft_XtoIsoX(x, y) + 400, ft_YtoIsoY(x, y) + 20, 0x0000FFFF);
+        mlx_pixel_put(mlx, win, ft_XtoIsoX(x, y) + i, ft_YtoIsoY(x, y), 0x0000FFFF);
         list = list->next;
     }
 }
@@ -135,7 +137,7 @@ int		main(int argc, char **argv)
 	{
         p_list = ft_read_and_stock(p_list, line);
     }
-    ft_print_list(list);
+    //ft_print_list(list);
 	free(line);
 	if (close(fd) == -1)
 	{
@@ -145,8 +147,8 @@ int		main(int argc, char **argv)
     e.win = mlx_new_window(e.mlx, WIN_WIDTH, WIN_HEIGHT, "mlx 42");
     e.list = list;
     mlx_expose_hook(e.win, expose_hook, &e);
-    //mlx_key_hook(e.win, key_hook, &e);
-    //mlx_mouse_hook(e.win, mouse_hook, &e);
+    // mlx_key_hook(e.win, key_hook, &e);
+    // mlx_mouse_hook(e.win, mouse_hook, &e);
     mlx_loop(e.mlx);
     return (0);
 }
