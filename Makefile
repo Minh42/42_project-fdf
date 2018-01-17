@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: minh <minh@student.42.fr>                  +#+  +:+       +#+         #
+#    By: mpham <mpham@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 12:55:31 by cmace             #+#    #+#              #
-#    Updated: 2017/12/21 14:05:20 by minh             ###   ########.fr        #
+#    Updated: 2018/01/17 09:53:08 by mpham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ MLIBX_DIR = minilibx
 # SOURCES
 SRC = \
 			main.c\
+			ft_print_list.c \
 			
 OBJ = $(SRC:.c=.o)
 

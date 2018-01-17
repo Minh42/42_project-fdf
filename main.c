@@ -3,32 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 13:13:24 by minh              #+#    #+#             */
-/*   Updated: 2018/01/15 15:34:08 by minh             ###   ########.fr       */
+/*   Updated: 2018/01/17 09:59:06 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void ft_print_list(t_list *list)
-{
-    t_list *tmp = list;
-    if (tmp == NULL)
-    {
-        ft_putstr("erreur");
-    }
-    while (tmp)
-    {
-        printf("%d", ((t_point *)(tmp->content))->x);
-        printf("%d", ((t_point *)(tmp->content))->y);
-        printf("%d", ((t_point *)(tmp->content))->z);
-        printf("%s", ((t_point *)(tmp->content))->color);
-        tmp = tmp->next;
-    }
-    
-}
 
 int     ft_XtoIsoX(int x, int y)
 {
@@ -50,18 +32,16 @@ void    draw_form(void *mlx, void *win, t_list *list)
 {
     int x;
     int y;
-    int i;
-    int j;
+    int z;
 
     x = 0;
     y = 0;
-    i = (WIN_WIDTH / 2) - (11 * TILE_WIDTH);
-    j = (WIN_HEIGHT / 2) - (19 * TILE_HEIGHT);
     while (list)
     {
-        x = ((t_point *)(*list).content)->x;
+        x = ((t_point *)(*list).content)->x; 
         y = ((t_point *)(*list).content)->y;
-        mlx_pixel_put(mlx, win, ft_XtoIsoX(x, y) + i, ft_YtoIsoY(x, y), 0x0000FFFF);
+        z = ((t_point *)(*list).content)->z;
+        mlx_pixel_put(mlx, win, ft_XtoIsoX(x, y) / (z + 0.01)+ 500, ft_YtoIsoY(x, y) / (z + 0.01) + 200, 0x0000FFFF);
         list = list->next;
     }
 }
@@ -137,7 +117,7 @@ int		main(int argc, char **argv)
 	{
         p_list = ft_read_and_stock(p_list, line);
     }
-    //ft_print_list(list);
+    ft_print_list(list);
 	free(line);
 	if (close(fd) == -1)
 	{
