@@ -6,7 +6,7 @@
 #    By: mpham <mpham@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 12:55:31 by cmace             #+#    #+#              #
-#    Updated: 2018/01/17 15:34:59 by mpham            ###   ########.fr        #
+#    Updated: 2018/01/18 11:42:58 by mpham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ MLIBX_DIR = minilibx
 SRC = \
 			main.c\
 			ft_print_list.c \
-			ft_print_matrice.c \
+			m_functions.c \
 			
 OBJ = $(SRC:.c=.o)
 
