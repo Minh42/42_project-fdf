@@ -6,7 +6,7 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 13:13:24 by minh              #+#    #+#             */
-/*   Updated: 2018/01/18 14:32:27 by mpham            ###   ########.fr       */
+/*   Updated: 2018/01/18 18:20:11 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,16 @@ void    draw_form(void *mlx, void *win, t_list *list)
     int         x;
     int         y;
     int         z;
+    t_matrix    matrix;
     mat4_t      modelview;
-    mat4_t      init;
+ 
 
     x = 0;
     y = 0;
-    init = m4_identity();
-    modelview = mat4(2, 3, 2, 0, 4, 1, 2, 3, 3, 0, 1, 3, 1, 3, 0, 2);
+    matrix = (t_matrix){2, 3, 2, 0, 4, 1, 2, 3, 3, 0, 1, 3, 1, 3, 0, 2};
+    modelview = mat4(matrix);
     ft_print_mat4(modelview);
-    ft_putchar('\n');
-    ft_print_mat4(init);
-    
+
     //translation->p_matrice = {{2, 3, 2, 0}, {4, 1, 2, 3}, {3, 0, 1, 3}, {1, 3, 0, 2}};
 
     while (list)
