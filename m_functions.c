@@ -6,7 +6,7 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 11:41:25 by mpham             #+#    #+#             */
-/*   Updated: 2018/01/19 12:50:04 by mpham            ###   ########.fr       */
+/*   Updated: 2018/01/19 16:37:48 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,78 @@
 
 vec3_t  vec3(float x, float y, float z)
 {
-    return (vec3_t)
-    {
-        x, y , z
-    };
+    vec3_t  vec3;
+
+    vec3.x = x;
+    vec3.y = y;
+    vec3.z = z;
+    return (vec3);
 }
 
+vec3_t	vec3_add(vec3_t a, vec3_t b)
+{
+    vec3_t  vec3;
 
+    vec3.x = a.x + b.x;
+    vec3.y = a.y + b.y;
+    vec3.z = a.z + b.z;
+    return (vec3);
+}
 
+vec3_t	vec3_add_scalaire(vec3_t a, float s)
+{
+    vec3_t  vec3;
+    
+    vec3.x = a.x + s;
+    vec3.y = a.y + s;
+    vec3.z = a.z + s;
+    return (vec3);
+}
+
+vec3_t	vec3_sub(vec3_t a, vec3_t b)
+{
+    vec3_t  vec3;
+    
+        vec3.x = a.x - b.x;
+        vec3.y = a.y - b.y;
+        vec3.z = a.z - b.z;
+        return (vec3);
+}
+
+vec3_t	vec3_mult(vec3_t a, vec3_t b)
+{
+    vec3_t vec3;
+
+    vec3.x = a.x * b.x;
+    vec3.y = a.y * b.y;
+    vec3.z = a.z * b.z;
+    return (vec3);
+}
+
+vec3_t	vec3_div(vec3_t a, vec3_t b)
+{
+    vec3_t vec3;
+
+    vec3.x = a.x / b.x;
+    vec3.y = a.y / b.y;
+    vec3.z = a.z / b.z;
+    return (vec3);
+}
 
 void  ft_print_vec3(vec3_t vec3)
 {
+    ft_putchar('|');
     ft_putnbr(vec3.x);
+    ft_putchar('|');
     ft_putchar('\n');
+    ft_putchar('|');
     ft_putnbr(vec3.y);
+    ft_putchar('|');
     ft_putchar('\n');
+    ft_putchar('|');
     ft_putnbr(vec3.z);
+    ft_putchar('|');
 }
-
-
 
 // Matrice 4 x 4
 
@@ -109,4 +162,91 @@ mat4_t  ft_mult_mat4(mat4_t m1, mat4_t m2)
         i++;
     }
     return (result);
+}
+
+mat4_t  m4_translation(vec3_t offset)
+{
+    return mat4((t_matrix)
+		{1, 0, 0, offset.x,
+		 0, 1, 0, offset.y,
+		 0, 0, 1, offset.z,
+		 0, 0, 0, 1}
+    );
+}
+
+mat4_t	m4_scaling(vec3_t scale)
+{
+    return mat4((t_matrix)
+		{scale.x, 0, 0, 0,
+		 0, scale.y, 0, 0,
+		 0, 0, scale.z, 0,
+		 0, 0, 0, 1}
+    );
+}
+
+mat4_t	m4_rotationx(float angle)
+{
+    return mat4((t_matrix)
+		{1, 0, 0, 0,
+		 0, cos(angle), -sin(angle), 0,
+		 0, sin(angle), cos(angle), 0,
+		 0, 0, 0, 1}
+    );
+}
+
+mat4_t	m4_rotationy(float angle)
+{
+    return mat4((t_matrix)
+		{cos(angle), 0, sin(angle), 0,
+		 0, 1, 0, 0,
+		 -sin(angle), 0, cos(angle), 0,
+		 0, 0, 0, 1}
+    );
+}
+
+mat4_t	m4_rotationz(float angle)
+{
+    return mat4((t_matrix)
+		{cos(angle), -sin(angle), 0, 0,
+		 sin(angle), cos(angle), 0, 0,
+		 0, 0, 1, 0,
+		 0, 0, 0, 1}
+    );
+}
+
+mat4_t  m4_rotation(float angle, vec3_t e)
+{
+    float x;
+    float y;
+    float z;
+    float c;
+    float s;
+
+    x = e.x;
+    y = e.y;
+    z = e.z;
+    c = cos(angle);
+    s = sin(angle);
+
+    return mat4((t_matrix)
+        {(x * x * (1 - c)) + c, (x * y * (1 - c)) - (z * s) , (x * z * (1 - c)) + (y * s), 0,
+         (x * y * (1 - c)) + (z * s), (y * y * (1- c)) + c, (y * z * (1 - c )) - (x * s), 0,
+         (x * z * (1 - c)) - (y * s), (y * z * (1 - c)) + (x * s), (z * z * (1 - c)) + c, 0,
+         0, 0, 0, 1}
+    );
+}
+
+vec3_t m4_mult_pos(mat4_t matrix, vec3_t position) 
+{
+	vec3_t result = vec3(
+		matrix.m[0][0] * position.x + matrix.m[1][0] * position.y + matrix.m[2][0] * position.z + matrix.m[3][0],
+		matrix.m[0][1] * position.x + matrix.m[1][1] * position.y + matrix.m[2][1] * position.z + matrix.m[3][1],
+		matrix.m[0][2] * position.x + matrix.m[1][2] * position.y + matrix.m[2][2] * position.z + matrix.m[3][2]
+	);
+	
+	float w = matrix.m[0][3] * position.x + matrix.m[1][3] * position.y + matrix.m[2][3] * position.z + matrix.m[3][3];
+	if (w != 0 && w != 1)
+		return vec3(result.x / w, result.y / w, result.z / w);
+	
+	return result;
 }
