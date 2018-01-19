@@ -6,19 +6,38 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 11:41:25 by mpham             #+#    #+#             */
-/*   Updated: 2018/01/19 10:10:09 by mpham            ###   ########.fr       */
+/*   Updated: 2018/01/19 12:50:04 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "fdf.h"
 # include "math3D.h"
 
-// matrice 4 x 4
+// 3D Vectors
 
-# include "fdf.h"
-# include "math3D.h"
+vec3_t  vec3(float x, float y, float z)
+{
+    return (vec3_t)
+    {
+        x, y , z
+    };
+}
 
-// matrice 4 x 4
+
+
+
+void  ft_print_vec3(vec3_t vec3)
+{
+    ft_putnbr(vec3.x);
+    ft_putchar('\n');
+    ft_putnbr(vec3.y);
+    ft_putchar('\n');
+    ft_putnbr(vec3.z);
+}
+
+
+
+// Matrice 4 x 4
 
 mat4_t  mat4(t_matrix m) 
 {
@@ -43,6 +62,7 @@ void    ft_print_mat4(mat4_t matrice)
         while (j < 4)
         {
             ft_putnbr(matrice.m[i][j]);
+            ft_putchar('|');
             j++;
         }
         if (i < 3)
@@ -52,7 +72,7 @@ void    ft_print_mat4(mat4_t matrice)
     }
 }
 
-mat4_t  m4_identity()
+mat4_t  m4_identity(void)
 {
     return mat4((t_matrix)
 		{1, 0, 0, 0,
@@ -62,15 +82,31 @@ mat4_t  m4_identity()
     );
 }
 
-// mat4_t  ft_mult_mat4(mat4_t matrice1, mat4_t matrice2)
-// {
-//     int i;
-//     int j;
+mat4_t  ft_mult_mat4(mat4_t m1, mat4_t m2)
+{
+    int     i;
+    int     j;
+    int     k;
+    mat4_t  result;
     
-//     i = 0;
-//     j = 0;
-    
-
-
-
-// }
+    i = 0;
+    j = 0;
+    k = 0;
+    while (i < 4)
+    {
+        j = 0;
+        while (j < 4)
+        {
+            k = 0;
+            result.m[i][j] = 0;
+            while (k < 4)
+            {
+                result.m[i][j] += m1.m[i][k] * m2.m[k][j];
+                k++;
+            }
+            j++;
+        }
+        i++;
+    }
+    return (result);
+}

@@ -6,7 +6,7 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 13:13:24 by minh              #+#    #+#             */
-/*   Updated: 2018/01/19 10:10:36 by mpham            ###   ########.fr       */
+/*   Updated: 2018/01/19 13:28:04 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,34 @@ void        draw_form(void *mlx, void *win, t_list *list)
     int         x;
 	int         y;
 	int         z;
-	t_matrix    matrix;
-    mat4_t      modelview;
-    mat4_t      identity;
-
+    // t_matrix    matrice1;
+    // t_matrix    matrice2;
+    // mat4_t      modelview;
+    // mat4_t      identity;
+    vec4_t      vecteur;
+    mat4_t      resultat;
+    mat4_t      translation;
 
 	x = 0;
 	y = 0;
-	matrix = (t_matrix){2, 3, 2, 0, 4, 1, 2, 3, 3, 0, 1, 3, 1, 3, 0, 2};
-	modelview = mat4(matrix);
-    ft_print_mat4(modelview);
-    ft_putchar('\n');
-    identity = m4_identity();
-    ft_print_mat4(identity);
+    // matrice1 = (t_matrix){1, 3, 2, 6, 2, 1, 2, 0, 5, 0, 1, 3, 1, 2, 3, 2};
+    // matrice2 = (t_matrix){2, 3, 2, 0, 4, 1, 2, 3, 3, 0, 1, 3, 1, 3, 0, 2};
+    // modelview = mat4(matrice1);
+    // identity = mat4(matrice2);
+    // ft_print_mat4(ft_mult_mat4(modelview, identity));
+    vecteur = vec3(3, 2, 1);
+    ft_print_vec3(vecteur);
 
-	//translation->p_matrice = {{2, 3, 2, 0}, {4, 1, 2, 3}, {3, 0, 1, 3}, {1, 3, 0, 2}};
+    // ft_print_mat4(modelview);
+    // ft_putchar('\n');
+    // identity = m4_identity();
+    // ft_print_mat4(identity);
 
 	while (list)
 	{
 		x = ((t_point *)(*list).content)->x; 
 		y = ((t_point *)(*list).content)->y;
-		z = ((t_point *)(*list).content)->z;
+        z = ((t_point *)(*list).content)->z;
 		mlx_pixel_put(mlx, win, x, y, 0x0000FFFF);
 		list = list->next;
 	}
