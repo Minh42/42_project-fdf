@@ -6,7 +6,7 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 11:41:25 by mpham             #+#    #+#             */
-/*   Updated: 2018/01/19 16:37:48 by mpham            ###   ########.fr       */
+/*   Updated: 2018/01/22 10:47:49 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,6 @@ vec3_t	vec3_add(vec3_t a, vec3_t b)
     vec3.x = a.x + b.x;
     vec3.y = a.y + b.y;
     vec3.z = a.z + b.z;
-    return (vec3);
-}
-
-vec3_t	vec3_add_scalaire(vec3_t a, float s)
-{
-    vec3_t  vec3;
-    
-    vec3.x = a.x + s;
-    vec3.y = a.y + s;
-    vec3.z = a.z + s;
     return (vec3);
 }
 
@@ -88,6 +78,19 @@ void  ft_print_vec3(vec3_t vec3)
     ft_putchar('|');
     ft_putnbr(vec3.z);
     ft_putchar('|');
+}
+
+// 4D Vectors
+
+vec4_t  vec4(float x, float y, float z, float w)
+{
+    vec4_t  vec4;
+
+    vec4.x = x;
+    vec4.y = y;
+    vec4.z = z;
+    vec4.w = w;
+    return (vec4);
 }
 
 // Matrice 4 x 4
@@ -236,17 +239,13 @@ mat4_t  m4_rotation(float angle, vec3_t e)
     );
 }
 
-vec3_t m4_mult_pos(mat4_t matrix, vec3_t position) 
+vec4_t m4_mult_pos(mat4_t matrix, vec4_t position) 
 {
-	vec3_t result = vec3(
-		matrix.m[0][0] * position.x + matrix.m[1][0] * position.y + matrix.m[2][0] * position.z + matrix.m[3][0],
-		matrix.m[0][1] * position.x + matrix.m[1][1] * position.y + matrix.m[2][1] * position.z + matrix.m[3][1],
-		matrix.m[0][2] * position.x + matrix.m[1][2] * position.y + matrix.m[2][2] * position.z + matrix.m[3][2]
-	);
-	
-	float w = matrix.m[0][3] * position.x + matrix.m[1][3] * position.y + matrix.m[2][3] * position.z + matrix.m[3][3];
-	if (w != 0 && w != 1)
-		return vec3(result.x / w, result.y / w, result.z / w);
-	
+	vec4_t result = vec4(
+		matrix.m[0][0] * position.x + matrix.m[0][1] * position.y + matrix.m[0][2] * position.z + matrix.m[0][3] * position.w,
+		matrix.m[1][0] * position.x + matrix.m[1][1] * position.y + matrix.m[1][2] * position.z + matrix.m[1][3] * position.w,
+        matrix.m[2][0] * position.x + matrix.m[2][1] * position.y + matrix.m[2][2] * position.z + matrix.m[2][3] * position.w,
+        matrix.m[3][0] * position.x + matrix.m[3][1] * position.y + matrix.m[3][2] * position.z + matrix.m[3][3] * position.w
+	);	
 	return result;
 }

@@ -6,7 +6,7 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:53:40 by minh              #+#    #+#             */
-/*   Updated: 2018/01/18 11:54:42 by mpham            ###   ########.fr       */
+/*   Updated: 2018/01/22 17:31:23 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 
 # define WIN_WIDTH 1000
 # define WIN_HEIGHT 1000
-# define TILE_WIDTH 50
-# define TILE_HEIGHT 50
+# define TILE_WIDTH 25
+# define TILE_HEIGHT 25
 
 typedef struct	s_point
 {
@@ -55,6 +55,7 @@ typedef struct  s_env
 }               t_env;
 
 void	ft_print_list(t_list *list);
+void    ft_bresenham(void *mlx, void *win, int x1, int y1, int x2, int y2);
 
 
 #endif

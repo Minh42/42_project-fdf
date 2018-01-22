@@ -4,21 +4,15 @@
 #include <math.h>
 #include <stdio.h>
 
-// 3D Vectors
-
 typedef struct
 {
 	float x, y, z;
 }				vec3_t;
 
-vec3_t	vec3(float x, float y, float z);
-vec3_t	vec3_add(vec3_t a, vec3_t b);
-vec3_t	vec3_sub(vec3_t a, vec3_t b);
-vec3_t	vec3_mult(vec3_t a, vec3_t b);
-vec3_t	vec3_div(vec3_t a, vec3_t b);
-void	ft_print_vec3(vec3_t vec3);
-
-// Matrice 4 x 4
+typedef struct
+{
+	float x, y, z, w;
+}				vec4_t;
 
 typedef struct s_matrix t_matrix;
 typedef union 
@@ -33,6 +27,21 @@ typedef union
 	}	   	t_matrix;
 } mat4_t;
 
+// 3D Vectors
+
+vec3_t	vec3(float x, float y, float z);
+vec3_t	vec3_add(vec3_t a, vec3_t b);
+vec3_t	vec3_sub(vec3_t a, vec3_t b);
+vec3_t	vec3_mult(vec3_t a, vec3_t b);
+vec3_t	vec3_div(vec3_t a, vec3_t b);
+void	ft_print_vec3(vec3_t vec3);
+
+// 4D Vectors
+
+vec4_t	vec4(float x, float y, float z, float w);
+vec4_t 	m4_mult_pos(mat4_t matrix, vec4_t position);
+
+// Matrice 4 x 4
 
 mat4_t  mat4(t_matrix matrice);
 void    ft_print_mat4(mat4_t matrice);
@@ -45,6 +54,5 @@ mat4_t	m4_rotationy(float angle);
 mat4_t	m4_rotationz(float angle);
 mat4_t	m4_rotation(float angle, vec3_t axis);
 mat4_t	m4_transpose(mat4_t matrice);
-vec3_t	m4_mult_pos(mat4_t matrix, vec3_t position);
 
 #endif

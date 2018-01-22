@@ -6,7 +6,7 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 13:13:24 by minh              #+#    #+#             */
-/*   Updated: 2018/01/19 16:52:14 by mpham            ###   ########.fr       */
+/*   Updated: 2018/01/22 17:54:49 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,44 +18,36 @@ void        draw_form(void *mlx, void *win, t_list *list)
     int         x;
 	int         y;
     int         z;
-    int         w;
-    // t_matrix    matrice1;
-    // t_matrix    matrice2;
-    // mat4_t      modelview;
-    // mat4_t      identity;
-    vec3_t     vecteur;
-    vec3_t     vecteur_pos;
-    vec3_t     matrice;
-    mat4_t     translation;
-
+    // int         w;
+    // vec3_t     	vecteur;
+    // vec4_t     	vecteur_pos;
+    // vec4_t     	matrice;
+	// mat4_t     	translation;
+	// mat4_t		rotationz;
+	// mat4_t		rotationy;
+	// vec4_t		resultat;
 
 	x = 0;
     y = 0;
     z = 0;
-    w = 1;
-    vecteur = vec3((WIN_WIDTH - (19 * TILE_WIDTH)) / 2, (WIN_HEIGHT - (11 * TILE_HEIGHT)) / 2, 0);
-    // matrice = (t_matrix){1, 3, 2, 6, 2, 1, 2, 0, 5, 0, 1, 3, 1, 2, 3, 2};
-    // value = (t_matrix){2, 3, 2, 0, 4, 1, 2, 3, 3, 0, 1, 3, 1, 3, 0, 2};
-    translation = m4_translation(vecteur);
-    ft_print_mat4(translation);
-    // modelview = mat4(matrice1);
-    // identity = mat4(matrice2);
-    // ft_print_mat4(ft_mult_mat4(modelview, identity));
-    // ft_print_mat4(modelview);
-    // ft_putchar('\n');
-    // identity = m4_identity();
-    // ft_print_mat4(identity);
+    // w = 1;
+    // vecteur = vec3((WIN_WIDTH - (19 * TILE_WIDTH)) / 2, (WIN_HEIGHT - (11 * TILE_HEIGHT)) / 2, 0);
+	// translation = m4_translation(vecteur);
+	// rotationz = m4_rotationz(330 * 3.14 / 180);
+	// rotationy = m4_rotationy(45 * 3.14 / 180);
 
 	while (list)
 	{
 		x = ((t_point *)(*list).content)->x; 
 		y = ((t_point *)(*list).content)->y;
-        z = ((t_point *)(*list).content)->z;
-        x = x * (TILE_WIDTH / 2);
-        y = y * (TILE_HEIGHT / 2);
-        vecteur_pos = vec3(x, y, z);
-        matrice = m4_mult_pos(translation, vecteur_pos);
-		mlx_pixel_put(mlx, win, x + matrice.x, y + matrice.y, 0x0000FFFF);
+		z = ((t_point *)(*list).content)->z;
+		x = x * TILE_WIDTH;
+		y = y * TILE_HEIGHT;
+		// vecteur_pos = vec4(x, y, z, w);
+		// matrice = m4_mult_pos(rotationz, vecteur_pos);
+		// resultat = m4_mult_pos(rotationy, matrice);
+		// resultat = m4_mult_pos(translation, resultat);
+		ft_bresenham(mlx, win, 0, 0, 25, 0);
 		list = list->next;
 	}
 }
