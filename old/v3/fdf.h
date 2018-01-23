@@ -6,7 +6,7 @@
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:53:40 by minh              #+#    #+#             */
-/*   Updated: 2018/01/23 15:47:01 by minh             ###   ########.fr       */
+/*   Updated: 2018/01/14 23:31:46 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,16 @@
 
 # define WIN_WIDTH 1000
 # define WIN_HEIGHT 1000
-# define TILE_WIDTH 25
-# define TILE_HEIGHT 25
+# define TILE_WIDTH 50
+# define TILE_HEIGHT 50
 
 typedef struct	s_point
 {
-	int 		x;
-	int 		y;
-	int 		z;
-	int			w;
-	char		*color;
+	int 	x;
+	int 	y;
+	int 	z;
+	char	*color;
 }			  	t_point;
-
-typedef struct  s_line
-{
-	t_point	**points;
-	int		len;
-}				t_line;
-
-typedef struct  s_map
-{
-	t_line	**lines;
-	int		len;
-}				t_map;
 
 typedef struct	s_img
 {
@@ -66,11 +53,5 @@ typedef struct  s_env
 	t_list		*list;
     t_img       img;
 }               t_env;
-
-t_map   *ft_parse_map(char **argv);
-int     ft_map_size(char *map);
-void	ft_print_list(t_list *list);
-void    ft_bresenham(void *mlx, void *win, int x1, int y1, int x2, int y2);
-
 
 #endif

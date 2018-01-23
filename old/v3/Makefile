@@ -6,7 +6,7 @@
 #    By: minh <minh@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 12:55:31 by cmace             #+#    #+#              #
-#    Updated: 2018/01/23 15:43:53 by minh             ###   ########.fr        #
+#    Updated: 2017/12/21 14:05:20 by minh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,6 @@ MLIBX_DIR = minilibx
 # SOURCES
 SRC = \
 			main.c\
-			ft_read_and_stock.c \
-
 			
 OBJ = $(SRC:.c=.o)
 
