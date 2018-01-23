@@ -52,31 +52,23 @@ void    ft_print_tab(t_map *map)
 {
     int i;
     int j;
-    int k;
 
     i = 0;
-    j = 0;
-    k = 0;
-
-    while (i < map->len)
+	while (i < map->len)
 	{
-		while (j < (map->lines[j]->len))
+        j = 0;
+		while (j < (map->lines[i]->len))
 		{
-            while (k < (map->lines[j]->len))
-            {
-                ft_putnbr(map->lines[j]->points[k]->x);
-                ft_putnbr(map->lines[j]->points[k]->y);
-                ft_putnbr(map->lines[j]->points[k]->z);
-                ft_putnbr(map->lines[j]->points[k]->w);
-                ft_putstr(map->lines[j]->points[k]->color);
-                ft_putchar('\n');
-                k++;
-            } 
-            k = 0;
-            j++; 
-        }
-        i++;
-    }
+            ft_putnbr(map->lines[i]->points[j]->x);
+            ft_putnbr(map->lines[i]->points[j]->y);
+            ft_putnbr(map->lines[i]->points[j]->z);
+            ft_putnbr(map->lines[i]->points[j]->w);
+            ft_putstr(map->lines[i]->points[j]->color);
+            ft_putchar('\n');
+			j++;
+		}
+		i++;
+	}
 }
 
 t_point     **ft_get_coord(char *line, int nb_line, t_point ***array_points)
@@ -93,8 +85,8 @@ t_point     **ft_get_coord(char *line, int nb_line, t_point ***array_points)
 	{
 		if (!(coord = (t_point*)malloc(sizeof(t_point))))
             ft_putstr("malloc failed");
-		coord->x = i;
-		coord->y = nb_line;
+		coord->x = i * TILE_WIDTH;
+		coord->y = nb_line * TILE_HEIGHT;
 		coord->z = ft_getnbr(str[i]);
 		coord->w = 1;
 		coord->color = ft_strchr(str[i], ',') ?  &str[i][2] : "0xFFFFFF";
@@ -133,17 +125,11 @@ t_map   *ft_parse_map(char **argv)
         nb_line++;  
 	}
     map->len = nb_line;
-    ft_print_tab(map);
 	free(line);
+    ft_print_tab(map);
 	if (close(fd) == -1)
 	{
 		ft_putstr("close() failed\n");
 	}
     return (map);
 }
-
-
-
-
-
-

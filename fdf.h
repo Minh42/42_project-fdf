@@ -6,7 +6,7 @@
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:53:40 by minh              #+#    #+#             */
-/*   Updated: 2018/01/23 15:47:01 by minh             ###   ########.fr       */
+/*   Updated: 2018/01/23 21:04:20 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@
 # include <stdlib.h>
 # include <string.h>
 
-# define WIN_WIDTH 1000
-# define WIN_HEIGHT 1000
+# define WIN_WIDTH 800
+# define WIN_HEIGHT 600
 # define TILE_WIDTH 25
 # define TILE_HEIGHT 25
+# define PI 3.14159265359
 
 typedef struct	s_point
 {
@@ -63,7 +64,7 @@ typedef struct  s_env
 {
     void        *mlx;
     void        *win;
-	t_list		*list;
+	t_map		*map;
     t_img       img;
 }               t_env;
 
