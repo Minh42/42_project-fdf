@@ -6,7 +6,7 @@
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:53:40 by minh              #+#    #+#             */
-/*   Updated: 2018/01/23 21:04:20 by minh             ###   ########.fr       */
+/*   Updated: 2018/01/24 19:52:33 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ typedef struct  s_map
 typedef struct	s_img
 {
 	void		*img_ptr;
-	int			*data; 
-	int			size_l;
+	char		*data; 
+	int			sizeline;
 	int			bpp;
 	int			endian;
 }               t_img;

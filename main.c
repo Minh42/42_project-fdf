@@ -6,7 +6,7 @@
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 13:13:24 by minh              #+#    #+#             */
-/*   Updated: 2018/01/23 21:03:49 by minh             ###   ########.fr       */
+/*   Updated: 2018/01/24 19:39:43 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,23 @@ void        draw_form(void *mlx, void *win, t_map *map)
 {
     int         i;
 	int         j;
-	int 		x;
-	int 		y;
-	int			z;
-	int			w;
-    vec3_t     	vecteur;
-    vec4_t     	vecteur_pos;
+    // vec3_t     	vecteur;
+    // vec4_t     	vecteur_pos;
     // vec4_t     	matrice;
-	mat4_t     	translation;
+	// mat4_t     	translation;
 	// mat4_t		rotationz;
 	// mat4_t		rotationy;
-	vec4_t		resultat;
+	// vec4_t		resultat;
+	mat4_t	projection;
+	mat4_t  modelview;
+
+	projection = perspective(70, (double) TILE_WIDTH/TILE_HEIGHT, 1, 100);
+	modelview = m4_identity();
 
 	i = 0;
 	j = 0;
-	x = 0;
-	y = 0;
-	z = 0;
-	w = 0;
-    vecteur = vec3((WIN_WIDTH - (19 * TILE_WIDTH)) / 2, (WIN_HEIGHT - (11 * TILE_HEIGHT)) / 2, 0);
-	translation = m4_translation(vecteur);
+    // vecteur = vec3((WIN_WIDTH - (19 * TILE_WIDTH)) / 2, (WIN_HEIGHT - (11 * TILE_HEIGHT)) / 2, 0);
+	// translation = m4_translation(vecteur);
 	// rotationz = m4_rotationz(330 * 3.14 / 180);
 	// rotationy = m4_rotationy(45 * 3.14 / 180);
     while (i < map->len)
@@ -52,13 +49,14 @@ void        draw_form(void *mlx, void *win, t_map *map)
         j = 0;
 		while (j < (map->lines[i]->len))
 		{
-            x = map->lines[i]->points[j]->x;
-            y = map->lines[i]->points[j]->y;
-            z = map->lines[i]->points[j]->z;
-			w = map->lines[i]->points[j]->w;
-			vecteur_pos = vec4(x, y, z, w);
-			resultat = m4_mult_pos(translation, vecteur_pos);
-        	mlx_pixel_put(mlx, win, resultat.x, resultat.y, 0x0000FFFF);
+            // x = map->lines[i]->points[j]->x;
+            // y = map->lines[i]->points[j]->y;
+            // z = map->lines[i]->points[j]->z;
+			// w = map->lines[i]->points[j]->w;
+			ft_bresenham(mlx, win, map->lines[i]->points[j]->x, map->lines[i]->points[j + 1]->x, map->lines[i]->points[j]->y, map->lines[i]->points[j + 1]->y);
+			// vecteur_pos = vec4(x, y, z, w);
+			// resultat = m4_mult_pos(translation, vecteur_pos);
+        	// mlx_pixel_put(mlx, win, resultat.x, resultat.y, 0x0000FFFF);
 			j++;
 		}
 		i++;
@@ -103,6 +101,7 @@ int		main(int argc, char **argv)
 	e.mlx = mlx_init();
 	e.win = mlx_new_window(e.mlx, WIN_WIDTH, WIN_HEIGHT, "mlx 42");
 	e.map = map;
+	e.img = mlx_new_imagee(e.mlx, TILE_WIDTH, TILE_HEIGHT);
 	mlx_expose_hook(e.win, expose_hook, &e);
 	// mlx_key_hook(e.win, key_hook, &e);
 	// mlx_mouse_hook(e.win, mouse_hook, &e);

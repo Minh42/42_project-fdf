@@ -6,7 +6,7 @@
 #    By: minh <minh@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 12:55:31 by cmace             #+#    #+#              #
-#    Updated: 2018/01/23 18:34:31 by minh             ###   ########.fr        #
+#    Updated: 2018/01/23 21:28:08 by minh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ MLIBX_DIR = minilibx
 SRC = \
 			main.c\
 			ft_read_and_stock.c \
-			m_functions.c
+			m_functions.c \
+			ft_bresenham.c
 
 			
 OBJ = $(SRC:.c=.o)
