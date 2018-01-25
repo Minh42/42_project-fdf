@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: minh <minh@student.42.fr>                  +#+  +:+       +#+         #
+#    By: mpham <mpham@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 12:55:31 by cmace             #+#    #+#              #
-#    Updated: 2018/01/23 21:28:08 by minh             ###   ########.fr        #
+#    Updated: 2018/01/25 13:57:23 by mpham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,12 @@ MLIBX_DIR = minilibx
 # SOURCES
 SRC = \
 			main.c\
-			ft_read_and_stock.c \
+			ft_parse_map.c \
 			m_functions.c \
-			ft_bresenham.c
+			ft_bresenham.c \
+			ft_init_map.c \
+			ft_draw.c \
+			ft_events.c
 
 			
 OBJ = $(SRC:.c=.o)
@@ -79,7 +82,7 @@ fclean: clean
 	@$(RM) -f $(NAME)
 	@make fclean -C $(LIBFT_DIR)
 	@make clean -C $(MLIBX_DIR)
-	@echo "fclean fillit: $(_CYAN)done$(_END)"
+	@echo "fclean fdf: $(_CYAN)done$(_END)"
 
 re: fclean all
 

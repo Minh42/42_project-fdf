@@ -6,7 +6,7 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 11:41:25 by mpham             #+#    #+#             */
-/*   Updated: 2018/01/22 10:47:49 by mpham            ###   ########.fr       */
+/*   Updated: 2018/01/25 16:06:44 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,3 +249,51 @@ vec4_t m4_mult_pos(mat4_t matrix, vec4_t position)
 	);	
 	return result;
 }
+
+mat4_t m4_perspective(float vertical_field_of_view_in_deg, float aspect_ratio, float near_view_distance, float far_view_distance) 
+{
+	float fovy_in_rad = vertical_field_of_view_in_deg / 180 * M_PI;
+	float f = 1.0f / tanf(fovy_in_rad / 2.0f);
+	float ar = aspect_ratio;
+	float nd = near_view_distance, fd = far_view_distance;
+	
+	return mat4((t_matrix)
+		 {f / ar,           0,                0,                0,
+		 0,                f,                0,                0,
+		 0,                0,               (fd+nd)/(nd-fd),  (2*fd*nd)/(nd-fd),
+		 0,                0,               -1,                0}
+	);
+}
+
+float  vec3_length(vec3_t v)                    { return sqrtf(v.x*v.x + v.y*v.y + v.z*v.z);          }
+float  vec3_dot   (vec3_t a, vec3_t b)          { return a.x*b.x + a.y*b.y + a.z*b.z;                 }
+vec3_t vec3_muls  (vec3_t a, float s)           { return (vec3_t){ a.x * s,   a.y * s,   a.z * s   }; }
+vec3_t vec3_norm(vec3_t v) {
+	float len = vec3_length(v);
+	if (len > 0)
+		return (vec3_t){ v.x / len, v.y / len, v.z / len };
+	else
+		return (vec3_t){ 0, 0, 0};
+}
+vec3_t vec3_cross(vec3_t a, vec3_t b) {
+	return (vec3_t){
+		a.y * b.z - a.z * b.y,
+		a.z * b.x - a.x * b.z,
+		a.x * b.y - a.y * b.x
+	};
+}
+
+
+mat4_t m4_look_at(vec3_t from, vec3_t to, vec3_t up) {
+	vec3_t z = vec3_muls(vec3_norm(vec3_sub(to, from)), -1);
+	vec3_t x = vec3_norm(vec3_cross(up, z));
+	vec3_t y = vec3_cross(z, x);
+	
+	return mat4((t_matrix)
+		{x.x, x.y, x.z, -vec3_dot(from, x),
+		y.x, y.y, y.z, -vec3_dot(from, y),
+		z.x, z.y, z.z, -vec3_dot(from, z),
+		0,   0,   0,    1}
+	);
+}
+

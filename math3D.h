@@ -54,5 +54,13 @@ mat4_t	m4_rotationy(float angle);
 mat4_t	m4_rotationz(float angle);
 mat4_t	m4_rotation(float angle, vec3_t axis);
 mat4_t	m4_transpose(mat4_t matrice);
+mat4_t 	m4_perspective(float vertical_field_of_view_in_deg, float aspect_ratio, float near_view_distance, float far_view_distance);
+float  vec3_dot   (vec3_t a, vec3_t b);
+vec3_t vec3_muls  (vec3_t a, float s);
+vec3_t vec3_norm  (vec3_t v);
+vec3_t vec3_cross (vec3_t a, vec3_t b);
+float  vec3_length(vec3_t v);
+mat4_t m4_look_at(vec3_t from, vec3_t to, vec3_t up);
+
 
 #endif
