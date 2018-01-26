@@ -6,7 +6,7 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 13:13:24 by minh              #+#    #+#             */
-/*   Updated: 2018/01/25 11:19:39 by mpham            ###   ########.fr       */
+/*   Updated: 2018/01/26 15:57:57 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,26 @@
 //     return (0);
 // }
 
-// int     key_hook(int keycode, t_env *e)
-// {
-//     printf("key event %d\n", keycode);
-//     if (keycode == 53) // exit
-//         exit(0);
-//     if (keycode == 49) // reset
+int     key_hook(int keycode, t_env *e)
+{
+    printf("key event %d\n", keycode);
+    if (keycode == 53) // exit
+        exit(0);
+    if (keycode == 51) // clear
+		mlx_clear_window(e->mlx, e->win);
+    if (keycode == 49) // clear
+		ft_init_map(e);
 
-//     if (keycode == 126) // up
-//     if (keycode == 125) // down
-//     if (keycode == 124) // right
-//     if (keycode == 123) // left
 
-//     return (0);
-// }
+    // if (keycode == 126) // up
+		
+
+    // if (keycode == 125) // down
+    // if (keycode == 124) // right
+    // if (keycode == 123) // left
+
+    return (0);
+}
 
 
 int		main(int argc, char **argv)
@@ -50,9 +56,11 @@ int		main(int argc, char **argv)
 	e.mlx = mlx_init();
 	e.win = mlx_new_window(e.mlx, WIN_WIDTH, WIN_HEIGHT, "mlx 42");
 	e.map = ft_parse_map(argv);
+	e.img.img_ptr = mlx_new_image(e.mlx, TILE_WIDTH, TILE_HEIGHT);
 	ft_init_map(&e);
+
 	// mlx_expose_hook(e.win, expose_hook, &e);
-	// mlx_key_hook(e.win, key_hook, &e);
+	mlx_key_hook(e.win, key_hook, &e);
 	// mlx_mouse_hook(e.win, mouse_hook, &e);
 	mlx_loop(e.mlx);
 	return (0);

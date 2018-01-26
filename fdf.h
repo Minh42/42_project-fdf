@@ -6,7 +6,7 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:53:40 by minh              #+#    #+#             */
-/*   Updated: 2018/01/25 17:13:09 by mpham            ###   ########.fr       */
+/*   Updated: 2018/01/26 10:34:02 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # include <string.h>
 # include "math3D.h"
 
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
+# define WIN_WIDTH 2000
+# define WIN_HEIGHT 1500
 # define TILE_WIDTH 25
 # define TILE_HEIGHT 25
 # define PI 3.14159265359
