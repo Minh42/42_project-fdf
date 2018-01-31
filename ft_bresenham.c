@@ -6,18 +6,19 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 11:31:17 by mpham             #+#    #+#             */
-/*   Updated: 2018/01/25 16:08:14 by mpham            ###   ########.fr       */
+/*   Updated: 2018/01/31 11:27:58 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void    ft_bresenham1(void *mlx, void *win, t_algo *b)
+void    ft_bresenham1(t_env *e, t_algo *b)
 {
     int i;
 
     i = 0;
-	mlx_pixel_put(mlx, win, b->x, b->y, 0x0000FFFF);
+	//mlx_pixel_put(e->mlx, e->win, b->x, b->y, 0x0000FFFF);
+    ft_fill_pixel(e, b->x + e->offset_x, b->y + e->offset_y, 0x0000FFFF);
     b->e = 2 * b->dy - b->dx;
     b->inc1 = 2 * (b->dy - b->dx);
     b->inc2 = 2 * b->dy;
@@ -33,17 +34,19 @@ void    ft_bresenham1(void *mlx, void *win, t_algo *b)
             b->e += b->inc2;
             b->x += b->incX;
         }
-        mlx_pixel_put(mlx, win, b->x, b->y, 0x0000FFFF);
+        //mlx_pixel_put(e->mlx, e->win, b->x, b->y, 0x0000FFFF);
+        ft_fill_pixel(e, b->x + e->offset_x, b->y + e->offset_y, 0x0000FFFF);        
         i++; 
     }
 }
 
-void    ft_bresenham2(void *mlx, void *win, t_algo *b)
+void    ft_bresenham2(t_env *e, t_algo *b)
 {
     int i;
 
     i = 0;
-	mlx_pixel_put(mlx, win, b->x, b->y, 0x0000FFFF);
+	// mlx_pixel_put(e->mlx, e->win, b->x, b->y, 0x0000FFFF);
+    ft_fill_pixel(e, b->x + e->offset_x, b->y + e->offset_y, 0x0000FFFF);
     b->e = 2 * b->dx - b->dy;
     b->inc1 = 2 * (b->dx - b->dy);
     b->inc2 = 2 * b->dx;
@@ -59,12 +62,13 @@ void    ft_bresenham2(void *mlx, void *win, t_algo *b)
             b->e += b->inc2;
             b->y += b->incY;
         }
- 	    mlx_pixel_put(mlx, win, b->x, b->y, 0x0000FFFF);
+ 	    //mlx_pixel_put(e->mlx, e->win, b->x, b->y, 0x0000FFFF);
+        ft_fill_pixel(e, b->x + e->offset_x, b->y + e->offset_y, 0x0000FFFF);         
         i++;        
     }
 }
 
-void    ft_bresenham(void *mlx, void *win, int x1, int y1, int x2, int y2)
+void    ft_bresenham(t_env *e, int x1, int y1, int x2, int y2)
 {
     t_algo  b;
 
@@ -87,7 +91,7 @@ void    ft_bresenham(void *mlx, void *win, int x1, int y1, int x2, int y2)
     b.x = x1;
     b.y = y1;
     if (b.dx > b.dy)
-        ft_bresenham1(mlx, win, &b);
+        ft_bresenham1(e, &b);
     else
-        ft_bresenham2(mlx, win, &b);
+        ft_bresenham2(e, &b);
 }

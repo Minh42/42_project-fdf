@@ -6,7 +6,7 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:53:40 by minh              #+#    #+#             */
-/*   Updated: 2018/01/26 10:34:02 by mpham            ###   ########.fr       */
+/*   Updated: 2018/01/31 11:49:13 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,24 @@
 # define TILE_WIDTH 25
 # define TILE_HEIGHT 25
 # define PI 3.14159265359
+
+# define EXIT 53
+# define CLEAR 51
+# define RESET 49
+# define MOVE_UP 126
+# define MOVE_DOWN 125
+# define MOVE_RIGHT 124
+# define MOVE_LEFT 123
+# define SCROLL_UP 5
+# define SCROLL_DOWN 7
+# define ROTATE_UP 91
+# define ROTATE_DOWN 84
+# define ROTATE_RIGHT 88
+# define ROTATE_LEFT 86
+
+
+
+
 
 typedef struct	s_point
 {
@@ -92,6 +110,8 @@ typedef struct  s_env
     void        *win;
 	t_map		*map;
     t_img       img;
+	int			offset_x;
+	int			offset_y;
 }               t_env;
 
 t_map   	*ft_parse_map(char **argv);
@@ -100,10 +120,15 @@ void    	ft_print_tab(t_map *map);
 int     	ft_count_column(char *line);
 int     	ft_count_row(char *map);
 void    	ft_init_map(t_env *e);
-void		ft_draw_horizontal(void *mlx, void *win, t_env *e);
-void		ft_draw_vertical(void *mlx, void *win, t_env *e);
-void    	ft_bresenham(void *mlx, void *win, int x1, int y1, int x2, int y2);
-void    	ft_bresenham1(void *mlx, void *win, t_algo *b);
-void    	ft_bresenham2(void *mlx, void *win, t_algo *b);
+void    	ft_set_coord(t_env *e);
+void		ft_draw_horizontal(t_env *e);
+void		ft_draw_vertical(t_env *e);
+void    	ft_bresenham(t_env *e, int x1, int y1, int x2, int y2);
+void    	ft_bresenham1(t_env *e, t_algo *b);
+void    	ft_bresenham2(t_env *e, t_algo *b);
+void    	ft_fill_pixel(t_env *e, int x, int y, int color);
+void    	ft_redraw(t_env *e);
+void    	ft_init_img(t_env *e);
+int			move_hook(int keycode, t_env *e);
 
 #endif
