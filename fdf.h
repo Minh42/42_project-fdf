@@ -6,7 +6,7 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:53:40 by minh              #+#    #+#             */
-/*   Updated: 2018/01/31 11:49:13 by mpham            ###   ########.fr       */
+/*   Updated: 2018/01/31 17:17:04 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,6 @@
 # define ROTATE_DOWN 84
 # define ROTATE_RIGHT 88
 # define ROTATE_LEFT 86
-
-
-
-
 
 typedef struct	s_point
 {
@@ -112,6 +108,9 @@ typedef struct  s_env
     t_img       img;
 	int			offset_x;
 	int			offset_y;
+	int			scale_x;
+	int			scale_y;
+	int			angle;
 }               t_env;
 
 t_map   	*ft_parse_map(char **argv);
@@ -130,5 +129,9 @@ void    	ft_fill_pixel(t_env *e, int x, int y, int color);
 void    	ft_redraw(t_env *e);
 void    	ft_init_img(t_env *e);
 int			move_hook(int keycode, t_env *e);
+int			rotate_hook(int keycode, t_env *e);
+void    	ft_translate_coord(t_env *e);
+void    	ft_scale_coord(t_env *e);
+void    	ft_rotationx_coord(t_env *e);
 
 #endif
