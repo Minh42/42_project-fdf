@@ -6,7 +6,7 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:53:40 by minh              #+#    #+#             */
-/*   Updated: 2018/01/31 17:17:04 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/01 12:49:57 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,6 @@ typedef struct  s_env
     t_img       img;
 	int			offset_x;
 	int			offset_y;
-	int			scale_x;
-	int			scale_y;
 	int			angle;
 }               t_env;
 
@@ -119,7 +117,7 @@ void    	ft_print_tab(t_map *map);
 int     	ft_count_column(char *line);
 int     	ft_count_row(char *map);
 void    	ft_init_map(t_env *e);
-void    	ft_set_coord(t_env *e);
+void    	ft_set_coord(t_env *e, mat4_t matrice);
 void		ft_draw_horizontal(t_env *e);
 void		ft_draw_vertical(t_env *e);
 void    	ft_bresenham(t_env *e, int x1, int y1, int x2, int y2);
@@ -130,8 +128,5 @@ void    	ft_redraw(t_env *e);
 void    	ft_init_img(t_env *e);
 int			move_hook(int keycode, t_env *e);
 int			rotate_hook(int keycode, t_env *e);
-void    	ft_translate_coord(t_env *e);
-void    	ft_scale_coord(t_env *e);
-void    	ft_rotationx_coord(t_env *e);
 
 #endif

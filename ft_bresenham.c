@@ -6,7 +6,7 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 11:31:17 by mpham             #+#    #+#             */
-/*   Updated: 2018/01/31 12:48:47 by mpham            ###   ########.fr       */
+/*   Updated: 2018/01/31 17:53:08 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void    ft_bresenham1(t_env *e, t_algo *b)
     int i;
 
     i = 0;
-	//mlx_pixel_put(e->mlx, e->win, b->x, b->y, 0x0000FFFF);
     ft_fill_pixel(e, b->x + e->offset_x, b->y + e->offset_y, 0x0000FFFF);
     b->e = 2 * b->dy - b->dx;
     b->inc1 = 2 * (b->dy - b->dx);
@@ -34,7 +33,6 @@ void    ft_bresenham1(t_env *e, t_algo *b)
             b->e += b->inc2;
             b->x += b->incX;
         }
-        //mlx_pixel_put(e->mlx, e->win, b->x, b->y, 0x0000FFFF);
         ft_fill_pixel(e, b->x + e->offset_x, b->y + e->offset_y, 0x0000FFFF);        
         i++; 
     }
@@ -45,7 +43,6 @@ void    ft_bresenham2(t_env *e, t_algo *b)
     int i;
 
     i = 0;
-	// mlx_pixel_put(e->mlx, e->win, b->x, b->y, 0x0000FFFF);
     ft_fill_pixel(e, b->x + e->offset_x, b->y + e->offset_y, 0x0000FFFF);
     b->e = 2 * b->dx - b->dy;
     b->inc1 = 2 * (b->dx - b->dy);
@@ -62,7 +59,6 @@ void    ft_bresenham2(t_env *e, t_algo *b)
             b->e += b->inc2;
             b->y += b->incY;
         }
- 	    //mlx_pixel_put(e->mlx, e->win, b->x, b->y, 0x0000FFFF);
         ft_fill_pixel(e, b->x + e->offset_x, b->y + e->offset_y, 0x0000FFFF);         
         i++;        
     }

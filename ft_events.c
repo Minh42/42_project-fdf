@@ -6,7 +6,7 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 10:39:13 by mpham             #+#    #+#             */
-/*   Updated: 2018/01/31 17:16:00 by mpham            ###   ########.fr       */
+/*   Updated: 2018/01/31 18:17:21 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,3 +21,4 @@ void    ft_redraw(t_env *e)
     ft_draw_vertical(e); 
 	mlx_put_image_to_window(e->mlx, e->win, e->img.img_ptr, 0, 0);
 }
+

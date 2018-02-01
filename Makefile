@@ -6,7 +6,7 @@
 #    By: mpham <mpham@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 12:55:31 by cmace             #+#    #+#              #
-#    Updated: 2018/01/26 17:03:58 by mpham            ###   ########.fr        #
+#    Updated: 2018/02/01 10:55:42 by mpham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = fdf
 
 # COMPILATION FLAGS
 CC = gcc
-FLAGS = -g -Wall
+FLAGS = -g -Wall -fsanitize=address
 ADDFLAGS =
 
 # DIRECTORIES
