@@ -6,7 +6,7 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:53:40 by minh              #+#    #+#             */
-/*   Updated: 2018/02/02 18:32:04 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/01 18:11:55 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,18 @@ typedef struct	s_point
 	char		*color;
 }			  	t_point;
 
+typedef struct  s_line
+{
+	t_point	**points;
+	int		len;
+}				t_line;
+
+typedef struct  s_map
+{
+	t_line	**lines;
+	int		len;
+}				t_map;
+
 typedef struct	s_coord
 {
 	int 	x1;
@@ -82,7 +94,7 @@ typedef struct  s_algo
 typedef struct	s_img
 {
 	void		*img_ptr;
-	int			*data; 
+	int			*data;
 	int			sizeline;
 	int			bpp;
 	int			endian;
@@ -92,25 +104,24 @@ typedef struct  s_env
 {
     void        *mlx;
     void        *win;
-	void		*map;
-	void		*map_buffer;
+	t_map		*map;
+	t_map		*map_buffer;
     t_img       img;
-	int			nb_line;
-	int			nb_col;
 	int			offset_x;
 	int			offset_y;
+	int			zoomFactor;
 	int			angle;
 }               t_env;
 
-void   		ft_parse_map(char **argv, t_env *e, int nb_line, int nb_col);
-void     	ft_get_coord(char *line, int nb_line, int nb_col, t_point (*map)[nb_line][nb_col]);
-void    	ft_print_tab(int nb_line, int nb_col, t_point (*map)[nb_line][nb_col]);
-int     	ft_count_column(char *map);
-int     	ft_count_line(char *map);
+void   	ft_parse_map(t_env *e, char **argv);
+t_point     **ft_get_coord(char *line, int nb_line, t_point ***array_points);
+void    	ft_print_tab(t_map *map);
+int     	ft_count_column(char *line);
+int     	ft_count_row(char *map);
 void    	ft_init_map(t_env *e);
-void    	ft_set_coord(t_env *e, mat4_t matrice, int nb_line, int nb_col, t_point (*map)[nb_line][nb_col], t_point (*map_buffer)[nb_line][nb_col]);
-void		ft_draw_horizontal(t_env *e, int nb_line, int nb_col, t_point (*map_buffer)[nb_line][nb_col]);
-void		ft_draw_vertical(t_env *e, int nb_line, int nb_col, t_point (*map_buffer)[nb_line][nb_col]);
+void    	ft_set_coord(t_env *e, mat4_t matrice);
+void		ft_draw_horizontal(t_env *e);
+void		ft_draw_vertical(t_env *e);
 void    	ft_bresenham(t_env *e, int x1, int y1, int x2, int y2);
 void    	ft_bresenham1(t_env *e, t_algo *b);
 void    	ft_bresenham2(t_env *e, t_algo *b);
@@ -118,6 +129,8 @@ void    	ft_fill_pixel(t_env *e, int x, int y, int color);
 void    	ft_redraw(t_env *e);
 void    	ft_init_img(t_env *e);
 int			move_hook(int keycode, t_env *e);
+void    	ft_change_map(t_env *e);
 int			rotate_hook(int keycode, t_env *e);
+void		malloc_points(t_env *e);
 
 #endif
