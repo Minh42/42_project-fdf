@@ -6,7 +6,7 @@
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:53:40 by minh              #+#    #+#             */
-/*   Updated: 2018/02/03 16:04:08 by minh             ###   ########.fr       */
+/*   Updated: 2018/02/03 18:26:51 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,12 @@ typedef struct  s_algo
 	int 		y;
     int     	dx;
     int     	dy;
-    int     	incX;
-    int     	incY;
-	int			inc1;
-	int			inc2;
-	int			e;
+	int			Dx;
+	int			Dy;
+    int     	Xincr;
+    int     	Yincr;
+	int			ex;
+	int			ey;
 }               t_algo;
 
 typedef struct	s_img
@@ -121,8 +122,8 @@ void    	ft_set_coord(t_env *e, mat4_t matrice, int nb_line, int nb_col, t_point
 void		ft_draw_horizontal(t_env *e, int nb_line, int nb_col, t_point (*map_buffer)[nb_line][nb_col]);
 void		ft_draw_vertical(t_env *e, int nb_line, int nb_col, t_point (*map_buffer)[nb_line][nb_col]);
 void    	ft_bresenham(t_env *e, int x1, int y1, int x2, int y2);
-void    	ft_bresenham1(t_env *e, t_algo *b);
-void    	ft_bresenham2(t_env *e, t_algo *b);
+void    	ft_bresenham1(t_env *e, t_algo *b, int x1, int y1);
+void    	ft_bresenham2(t_env *e, t_algo *b, int x1, int y1);
 void    	ft_fill_pixel(t_env *e, int x, int y, int color);
 void    	ft_init_img(t_env *e);
 int			move_hook(int keycode, t_env *e);
