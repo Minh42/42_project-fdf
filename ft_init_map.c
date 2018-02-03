@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 09:49:49 by mpham             #+#    #+#             */
-/*   Updated: 2018/02/02 18:39:22 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/03 16:02:10 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,41 +29,61 @@ void    ft_init_img(t_env *e)
     e->img.data = (int *)mlx_get_data_addr(e->img.img_ptr, &e->img.bpp, &e->img.sizeline, &e->img.endian);
 }
 
-void    ft_init_map(t_env *e)
+void    ft_load_map(t_env *e)
 {
     mat4_t  translate;
     mat4_t  scale;
+    mat4_t  rotationx;
+    mat4_t  rotationy;
+    mat4_t  rotationz;
     mat4_t  rotation;
     // mat4_t  projection;
     // mat4_t  camera;
-    // mat4_t  resultat;
-    vec3_t  v_translate;
-    vec3_t  v_scale;
-    vec3_t  v_rotationx;
 
-    // vec3_t  eye;
-    // vec3_t  center;   
-    // vec3_t  up;
-
-    ft_init_img(e);
-    
-    v_scale = vec3(1, 1, 1);
-    scale = m4_scaling(v_scale);
-
-    v_rotationx = vec3(1, 0, 0);
-    rotation = m4_rotationx(((45.0 + e->angle) * PI / 180.0));
-
-    v_translate = vec3((WIN_WIDTH - (e->nb_col * TILE_WIDTH)) / 2, (WIN_HEIGHT - (e->nb_line * TILE_HEIGHT)) / 2, 0);
-	translate= m4_translation(v_translate);
-
+	ft_init_img(e);
+    scale = m4_scaling(vec3(1, 1, 1));
+    if(e->angle_x >= 360.0)
+        e->angle_x -= 360.0;
+    if(e->angle_y >= 360.0)
+        e->angle_y -= 360.0;
+    if(e->angle_z >= 360.0)
+        e->angle_z -= 360.0;
+    rotationx = m4_rotationx((0.0 + e->angle_x * PI / 180.0));
+    rotationy = m4_rotationy((0.0 + e->angle_y * PI / 180.0));
+    rotationz = m4_rotationz((0.0 + e->angle_z * PI / 180.0));
+	translate = m4_translation(vec3((WIN_WIDTH - (e->nb_col * TILE_WIDTH)) / 2, (WIN_HEIGHT - (e->nb_line * TILE_HEIGHT)) / 2, 0));
+    rotation = ft_mult_mat4(rotationz, ft_mult_mat4(rotationy, rotationx));
     ft_set_coord(e, ft_mult_mat4(translate, ft_mult_mat4(rotation, scale)), e->nb_line, e->nb_col, e->map, e->map_buffer);
-
-
-    // eye = vec3(50, 100, 0);
-    // center = vec3(0, 0, 0);
-    // up = vec3(0, 1, 0);
+    
     // camera = m4_look_at(eye, center, up);
+    // projection = m4_perspective(100.0, WIN_WIDTH/WIN_HEIGHT, 1.0, 100.0); 
+    
+    ft_draw_horizontal(e, e->nb_line, e->nb_col, e->map_buffer);
+    ft_draw_vertical(e, e->nb_line, e->nb_col, e->map_buffer);  
+    mlx_put_image_to_window(e->mlx, e->win, e->img.img_ptr, 0, 0);
+}
 
+void    ft_reset_map(t_env *e)
+{
+    mat4_t  translate;
+    mat4_t  scale;
+    mat4_t  rotationx;
+    mat4_t  rotationy;
+    mat4_t  rotationz;
+    mat4_t  rotation;
+    // mat4_t  projection;
+    // mat4_t  camera;
+
+	ft_init_img(e);
+    scale = m4_scaling(vec3(1, 1, 1));
+    rotationx = m4_rotationx((0.0 * PI / 180.0));
+    rotationy = m4_rotationy((0.0 * PI / 180.0));
+    rotationz = m4_rotationz((0.0 * PI / 180.0));
+	translate = m4_translation(vec3((WIN_WIDTH - (e->nb_col * TILE_WIDTH)) / 2, (WIN_HEIGHT - (e->nb_line * TILE_HEIGHT)) / 2, 0));
+    rotation = ft_mult_mat4(rotationz, ft_mult_mat4(rotationy, rotationx));
+    ft_set_coord(e, ft_mult_mat4(translate, ft_mult_mat4(rotation, scale)), e->nb_line, e->nb_col, e->map, e->map_buffer);
+    
+    // camera = m4_look_at(eye, center, up);
     // projection = m4_perspective(100.0, WIN_WIDTH/WIN_HEIGHT, 1.0, 100.0); 
     
     ft_draw_horizontal(e, e->nb_line, e->nb_col, e->map_buffer);

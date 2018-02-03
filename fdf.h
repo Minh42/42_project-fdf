@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:53:40 by minh              #+#    #+#             */
-/*   Updated: 2018/02/02 18:32:04 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/03 16:04:08 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # include <string.h>
 # include "math3D.h"
 
-# define WIN_WIDTH 2000
-# define WIN_HEIGHT 1500
+# define WIN_WIDTH 800
+# define WIN_HEIGHT 600
 # define TILE_WIDTH 25
 # define TILE_HEIGHT 25
 # define PI 3.14159265359
@@ -40,10 +40,12 @@
 # define MOVE_LEFT 123
 # define SCROLL_UP 5
 # define SCROLL_DOWN 7
-# define ROTATE_UP 91
-# define ROTATE_DOWN 84
-# define ROTATE_RIGHT 88
-# define ROTATE_LEFT 86
+# define ROTATE_UP 13 //91
+# define ROTATE_DOWN 1 //84
+# define ROTATE_RIGHT 2 //88
+# define ROTATE_LEFT 0 //86
+# define ROTATE_Z1 12
+# define ROTATE_Z2 14
 
 typedef struct	s_point
 {
@@ -56,27 +58,27 @@ typedef struct	s_point
 
 typedef struct	s_coord
 {
-	int 	x1;
-	int		y1;
-	int		z1;
-	int		w1;
-	int 	x2;
-	int		y2;
-	int		z2;
-	int		w2;
+	int 		x1;
+	int			y1;
+	int			z1;
+	int			w1;
+	int 		x2;
+	int			y2;
+	int			z2;
+	int			w2;
 }				t_coord;
 
 typedef struct  s_algo
 {
-	int		x;
-	int 	y;
-    int     dx;
-    int     dy;
-    int     incX;
-    int     incY;
-	int		inc1;
-	int		inc2;
-	int		e;
+	int			x;
+	int 		y;
+    int     	dx;
+    int     	dy;
+    int     	incX;
+    int     	incY;
+	int			inc1;
+	int			inc2;
+	int			e;
 }               t_algo;
 
 typedef struct	s_img
@@ -99,7 +101,11 @@ typedef struct  s_env
 	int			nb_col;
 	int			offset_x;
 	int			offset_y;
-	int			angle;
+	int			scale_x;
+	int			scale_y;
+	int			angle_x;
+	int			angle_y;
+	int			angle_z;
 }               t_env;
 
 void   		ft_parse_map(char **argv, t_env *e, int nb_line, int nb_col);
@@ -107,7 +113,10 @@ void     	ft_get_coord(char *line, int nb_line, int nb_col, t_point (*map)[nb_li
 void    	ft_print_tab(int nb_line, int nb_col, t_point (*map)[nb_line][nb_col]);
 int     	ft_count_column(char *map);
 int     	ft_count_line(char *map);
-void    	ft_init_map(t_env *e);
+void    	ft_load_map(t_env *e);
+void    	ft_reset_map(t_env *e);
+void    	ft_redraw(t_env *e);
+void    	ft_reset(t_env *e);
 void    	ft_set_coord(t_env *e, mat4_t matrice, int nb_line, int nb_col, t_point (*map)[nb_line][nb_col], t_point (*map_buffer)[nb_line][nb_col]);
 void		ft_draw_horizontal(t_env *e, int nb_line, int nb_col, t_point (*map_buffer)[nb_line][nb_col]);
 void		ft_draw_vertical(t_env *e, int nb_line, int nb_col, t_point (*map_buffer)[nb_line][nb_col]);
@@ -115,7 +124,6 @@ void    	ft_bresenham(t_env *e, int x1, int y1, int x2, int y2);
 void    	ft_bresenham1(t_env *e, t_algo *b);
 void    	ft_bresenham2(t_env *e, t_algo *b);
 void    	ft_fill_pixel(t_env *e, int x, int y, int color);
-void    	ft_redraw(t_env *e);
 void    	ft_init_img(t_env *e);
 int			move_hook(int keycode, t_env *e);
 int			rotate_hook(int keycode, t_env *e);
