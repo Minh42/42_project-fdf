@@ -50,35 +50,28 @@ int     ft_count_column(char *map)
 			i++;
 		break;
 	}
-	while (get_next_line(fd, &line) > 0)
-	{	
-	}
 	free(line);
 	if (close(fd) == -1)
 		ft_putstr("close() failed\n");
     return (i);
 }
 
-void    ft_print_tab(t_env *e)
+void    ft_print_tab(int nb_line, int nb_col, t_point (*map)[nb_line][nb_col])
 {
     int i;
     int j;
 
     i = 0;
-	while (i < e->nb_line)
+	while (i < nb_line)
 	{
         j = 0;
-		while (j < e->nb_col)
+		while (j < nb_col)
 		{
-			ft_putnbr(e->map[i][j][0]);
-			ft_putchar('\n');
-			ft_putnbr(e->map[i][j][1]);
-			ft_putchar('\n');			
-			ft_putnbr(e->map[i][j][2]);
-			ft_putchar('\n');			
-			ft_putnbr(e->map[i][j][3]);
-			ft_putchar('\n');			
-			ft_putnbr(e->map[i][j][4]);
+			ft_putnbr((*map)[i][j].x);
+			ft_putnbr((*map)[i][j].y);
+			ft_putnbr((*map)[i][j].z);
+			ft_putnbr((*map)[i][j].w);
+			// ft_putstr((*map)[i][j].color);
             ft_putchar('\n');
 			j++;
 		}
@@ -86,7 +79,7 @@ void    ft_print_tab(t_env *e)
 	}
 }
 
-void     ft_get_coord(t_env *e, char *line)
+void     ft_get_coord(char *line, int nb_line, int nb_col, t_point (*map)[nb_line][nb_col])
 {
     static	int	i;
 	int			j;
@@ -94,32 +87,26 @@ void     ft_get_coord(t_env *e, char *line)
 
 	j = 0;
     str = ft_strsplit(line, ' ');
-	e->map[i] = (int **)malloc(e->nb_col * sizeof(int *));
-	e->map_buffer[i] = (int **)malloc(e->nb_col * sizeof(int *));
-	while (str[j] != '\0' && j < e->nb_col)
+	while (str[j] != '\0' && j < nb_col)
 	{
-		e->map[i][j] = (int *)malloc(5 * sizeof(int));
-		e->map_buffer[i][j] = (int *)malloc(5 * sizeof(int));
-		e->map[i][j][0] = j * TILE_WIDTH;
-		e->map[i][j][1] = i * TILE_HEIGHT;
-		e->map[i][j][2] = ft_getnbr(str[j]);
-		e->map[i][j][3] = 1;
-		e->map[i][j][4] = ft_strchr(str[j], ',') ? 
-		(int)ft_strtol(ft_strsub(str[j], ft_strlen(str[j]) - 6, 6)) : (int)ft_strtol("FFC0CB");
+		(*map)[i][j].x = j * TILE_WIDTH;
+		(*map)[i][j].y = i * TILE_HEIGHT;
+		(*map)[i][j].z = ft_getnbr(str[j]);
+		(*map)[i][j].w = 1;
+		(*map)[i][j].color = ft_strchr(str[j], ',') ?  &str[j][2] : "0xFFFFFF";
 		j++;
 	}
 	i++;
 }
 
-void   ft_parse_map(t_env *e, char **argv)
+void   ft_parse_map(char **argv, t_env *e, int nb_line, int nb_col)
 {
 	int		fd;
     char	*line;
-	int		***map;
-	int 	***map_buffer;
+	t_point	(*map)[nb_line][nb_col]; // map is a pointer to a 3 dimensional array
+	t_point	(*map_buffer)[nb_line][nb_col];
 
-	if(!(map = (int ***)malloc(e->nb_line * sizeof(int **))) || 
-		!(map_buffer = (int ***)malloc(e->nb_line * sizeof(int **))))
+	if(!(map = malloc(sizeof(*map))) || !(map_buffer = malloc(sizeof(*map_buffer))))
 	{
 		ft_putstr("malloc failed");
 		exit(EXIT_FAILURE);
@@ -128,19 +115,13 @@ void   ft_parse_map(t_env *e, char **argv)
 	e->map_buffer = map_buffer;
     fd = open(argv[1], O_RDONLY);
     if (fd == -1)
-	{
 		ft_putstr("open() failed\n");
-		exit(EXIT_SUCCESS);
-	}
 	while (get_next_line(fd, &line) > 0)
 	{
-        ft_get_coord(e, line);
+        ft_get_coord(line, nb_line, nb_col, e->map);
 	}
 	free(line);
-	// ft_print_tab(e);
+	ft_print_tab(nb_line, nb_col, e->map);
 	if (close(fd) == -1)
-	{
 		ft_putstr("close() failed\n");
-		exit(EXIT_SUCCESS);
-	}
 }

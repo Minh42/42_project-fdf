@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_events.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/25 10:39:13 by mpham             #+#    #+#             */
-/*   Updated: 2018/02/11 19:36:17 by minh             ###   ########.fr       */
+/*   Created: 2017/12/19 13:13:24 by minh              #+#    #+#             */
+/*   Updated: 2018/02/05 16:43:10 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "fdf.h"
+#include "fdf.h"
+#include "math3D.h"
 
 int     key_hook(int keycode, t_env *e)
 {
@@ -28,15 +29,9 @@ int     key_hook(int keycode, t_env *e)
 		ft_reset(e);
 	}
 	if (keycode == MOVE_UP || keycode == MOVE_DOWN || keycode == MOVE_RIGHT ||
-		keycode == MOVE_LEFT)
+		keycode == MOVE_LEFT || keycode == ZOOM_UP || keycode == ZOOM_DOWN)
 	{
 		move_hook(keycode, e);
-		ft_redraw(e);
-	}
-	if (keycode == ZOOM_IN || keycode == ZOOM_OUT || keycode == ZOOM_UP || 
-		keycode == ZOOM_DOWN)
-	{
-		zoom_hook(keycode, e);
 		ft_redraw(e);
 	}
 	if (keycode == ROTATE_UP || keycode == ROTATE_DOWN || 
@@ -46,15 +41,10 @@ int     key_hook(int keycode, t_env *e)
 		rotate_hook(keycode, e);	
 		ft_redraw(e);
 	}
-	if (keycode == COLOR_RED || keycode == COLOR_GREEN || keycode == COLOR_BLUE)
-	{
-		color_hook(keycode, e);
-		ft_redraw(e);
-	}
     return (0);
 }
 
-void	move_hook(int keycode, t_env *e)
+int		move_hook(int keycode, t_env *e)
 {
     if (keycode == MOVE_UP)
 		e->offset_y -= 100;
@@ -64,67 +54,50 @@ void	move_hook(int keycode, t_env *e)
 		e->offset_x += 100;
     if (keycode == MOVE_LEFT)
 		e->offset_x -= 100;
-}
-
-void	zoom_hook(int keycode, t_env *e)
-{
-	if (keycode == ZOOM_IN)
+	if (keycode == ZOOM_UP)
 	{
 		e->scale_x += 1;
 		e->scale_y += 1;
 	}
-	if (keycode == ZOOM_OUT)
+	if (keycode == ZOOM_DOWN)
 	{
 		e->scale_x -= 1;
 		e->scale_y -= 1;
 	}
-	if (keycode == ZOOM_UP)
-		e->scale_z += 1;
-	if (keycode == ZOOM_DOWN)	
-		e->scale_z -= 1;
+	return (0);
 }
 
-void	rotate_hook(int keycode, t_env *e)
+int		rotate_hook(int keycode, t_env *e)
 {
     if (keycode == ROTATE_UP)
-		e->angle_x += 10;
+			e->angle_x += 10;
     if (keycode == ROTATE_DOWN)
-		e->angle_x -= 10;
+			e->angle_x -= 10;
     if (keycode == ROTATE_RIGHT)
-		e->angle_y += 10;
+			e->angle_y += 10;
     if (keycode == ROTATE_LEFT)
-		e->angle_y -= 10;
-	if(keycode == ROTATE_Z1)
-		e->angle_z += 10;
-	if(keycode == ROTATE_Z2)
-		e->angle_z -= 10;		
+			e->angle_y -= 10;
+		if(keycode == ROTATE_Z1)
+			e->angle_z += 10;
+		if(keycode == ROTATE_Z2)
+			e->angle_z -= 10;		
+	return (0);
 }
 
-void	color_hook(int keycode, t_env *e)
-{
-    if (keycode == COLOR_RED)
-		e->color_r += 10;
-	if(keycode == COLOR_GREEN)
-		e->color_g += 10;
-	if(keycode == COLOR_BLUE)
-		e->color_b += 10;
-}
 
-void    ft_redraw(t_env *e)
+int		main(int argc, char **argv)
 {
-	mlx_clear_window(e->mlx, e->win);
-	ft_load_map(e);
-}
+	t_env   e;
 
-void    ft_reset(t_env *e)
-{
-	mlx_clear_window(e->mlx, e->win);
-	e->angle_x = 0;
-	e->angle_y = 0;
-	e->angle_z = 0;
-	e->offset_x = 0;
-	e->offset_y = 0;
-	e->scale_x = 0;
-	e->scale_y = 0;
-	ft_reset_map(e);
+	if (argc != 2)
+		ft_putstr("too many or too few arguments\n");
+	e.mlx = mlx_init();
+	e.win = mlx_new_window(e.mlx, WIN_WIDTH, WIN_HEIGHT, "mlx 42");
+	e.nb_line = ft_count_line(argv[1]);
+	e.nb_col = ft_count_column(argv[1]);
+	ft_parse_map(argv, &e, e.nb_line, e.nb_col);
+	ft_load_map(&e);
+	mlx_key_hook(e.win, key_hook, &e);
+	mlx_loop(e.mlx);
+	return (0);
 }

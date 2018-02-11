@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpham <mpham@student.42.fr>                +#+  +:+       +#+         #
+#    By: minh <minh@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 12:55:31 by cmace             #+#    #+#              #
-#    Updated: 2018/02/02 17:01:07 by mpham            ###   ########.fr        #
+#    Updated: 2018/02/06 10:50:03 by minh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ SRC = \
 			ft_bresenham.c \
 			ft_init_map.c \
 			ft_draw.c \
-			ft_events.c
+			ft_events.c \
+			ft_checks.c
 
 OBJ = $(SRC:.c=.o)
 
