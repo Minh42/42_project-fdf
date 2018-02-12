@@ -6,11 +6,12 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 11:31:17 by mpham             #+#    #+#             */
-/*   Updated: 2018/02/12 15:09:19 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/12 18:28:03 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include "math3d.h"
 
 t_color	ft_color_converter(t_env *e, int hexvalue)
 {

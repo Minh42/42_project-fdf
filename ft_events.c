@@ -6,11 +6,12 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 10:39:13 by mpham             #+#    #+#             */
-/*   Updated: 2018/02/12 18:15:08 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/12 18:28:22 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include "math3d.h"
 
 int		key_hook(int keycode, t_env *e)
 {

@@ -6,11 +6,12 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 10:29:33 by minh              #+#    #+#             */
-/*   Updated: 2018/02/12 13:05:13 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/12 18:44:23 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include "math3d.h"
 
 int		ft_check_valid_filename(char **argv)
 {
@@ -37,7 +38,7 @@ int		ft_check_valid_filename(char **argv)
 	return (0);
 }
 
-int		ft_check_data_entry(char **argv, int fd)
+int		ft_check_data_entry(int fd)
 {
 	int		ret;
 	char	*line;
@@ -55,7 +56,7 @@ int		ft_check_data_entry(char **argv, int fd)
 	return (0);
 }
 
-int		ft_check_data_validity(char **argv, int fd)
+int		ft_check_data_validity(int fd)
 {
 	int		i;
 	char	**str;
@@ -79,7 +80,7 @@ int		ft_check_data_validity(char **argv, int fd)
 	return (0);
 }
 
-int		ft_check_map_validity(char **argv, int fd)
+int		ft_check_map_validity(int fd)
 {
 	char	*line;
 	int		len;
@@ -110,11 +111,11 @@ int		ft_checks(char **argv)
 	}
 	if (ft_check_valid_filename(argv) == -1)
 		return (-1);
-	if (ft_check_data_entry(argv, fd) == -1)
+	if (ft_check_data_entry(fd) == -1)
 		return (-1);
-	if (ft_check_data_validity(argv, fd) == -1)
+	if (ft_check_data_validity(fd) == -1)
 		return (-1);
-	if (ft_check_map_validity(argv, fd) == -1)
+	if (ft_check_map_validity(fd) == -1)
 		return (-1);
 	if (close(fd) == -1)
 	{

@@ -6,15 +6,16 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 13:23:47 by mpham             #+#    #+#             */
-/*   Updated: 2018/02/12 13:40:39 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/12 19:09:44 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include "math3d.h"
 
-mat4_t	m4_translation(vec3_t offset)
+t_mat4	m4_translation(t_vec3 offset)
 {
-	mat4_t	matrice;
+	t_mat4	matrice;
 
 	matrice = mat4((t_matrix)
 		{1, 0, 0, offset.x,
@@ -24,9 +25,9 @@ mat4_t	m4_translation(vec3_t offset)
 	return (matrice);
 }
 
-mat4_t	m4_scaling(vec3_t scale)
+t_mat4	m4_scaling(t_vec3 scale)
 {
-	mat4_t	matrice;
+	t_mat4	matrice;
 
 	matrice = mat4((t_matrix)
 		{scale.x, 0, 0, 0,
@@ -36,9 +37,9 @@ mat4_t	m4_scaling(vec3_t scale)
 	return (matrice);
 }
 
-mat4_t	m4_rotationx(float angle)
+t_mat4	m4_rotationx(float angle)
 {
-	mat4_t	matrice;
+	t_mat4	matrice;
 
 	matrice = mat4((t_matrix)
 		{1, 0, 0, 0,
@@ -48,9 +49,9 @@ mat4_t	m4_rotationx(float angle)
 	return (matrice);
 }
 
-mat4_t	m4_rotationy(float angle)
+t_mat4	m4_rotationy(float angle)
 {
-	mat4_t	matrice;
+	t_mat4	matrice;
 
 	matrice = mat4((t_matrix)
 		{cos(angle), 0, sin(angle), 0,
@@ -60,9 +61,9 @@ mat4_t	m4_rotationy(float angle)
 	return (matrice);
 }
 
-mat4_t	m4_rotationz(float angle)
+t_mat4	m4_rotationz(float angle)
 {
-	mat4_t	matrice;
+	t_mat4	matrice;
 
 	matrice = mat4((t_matrix)
 		{cos(angle), -sin(angle), 0, 0,

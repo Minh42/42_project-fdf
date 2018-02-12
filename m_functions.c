@@ -6,15 +6,16 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 11:41:25 by mpham             #+#    #+#             */
-/*   Updated: 2018/02/12 13:29:25 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/12 19:14:56 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include "math3d.h"
 
-vec3_t	vec3(float x, float y, float z)
+t_vec3	vec3(float x, float y, float z)
 {
-	vec3_t	vec3;
+	t_vec3	vec3;
 
 	vec3.x = x;
 	vec3.y = y;
@@ -22,9 +23,9 @@ vec3_t	vec3(float x, float y, float z)
 	return (vec3);
 }
 
-vec4_t	vec4(float x, float y, float z, float w)
+t_vec4	vec4(float x, float y, float z, float w)
 {
-	vec4_t	vec4;
+	t_vec4	vec4;
 
 	vec4.x = x;
 	vec4.y = y;
@@ -33,9 +34,9 @@ vec4_t	vec4(float x, float y, float z, float w)
 	return (vec4);
 }
 
-mat4_t	mat4(t_matrix m)
+t_mat4	mat4(t_matrix m)
 {
-	return (mat4_t)
+	return (t_mat4)
 	{
 		{{m.m00, m.m01, m.m02, m.m03},
 			{m.m10, m.m11, m.m12, m.m13},
@@ -44,12 +45,12 @@ mat4_t	mat4(t_matrix m)
 	};
 }
 
-mat4_t	mult_mat4(mat4_t m1, mat4_t m2)
+t_mat4	mult_mat4(t_mat4 m1, t_mat4 m2)
 {
 	int		i;
 	int		j;
 	int		k;
-	mat4_t	result;
+	t_mat4	result;
 
 	i = 0;
 	j = 0;
@@ -73,9 +74,9 @@ mat4_t	mult_mat4(mat4_t m1, mat4_t m2)
 	return (result);
 }
 
-vec4_t	m4_mult_pos(mat4_t matrix, vec4_t position)
+t_vec4	m4_mult_pos(t_mat4 matrix, t_vec4 position)
 {
-	vec4_t result;
+	t_vec4 result;
 
 	result = vec4(matrix.m[0][0] * position.x + matrix.m[0][1] * position.y +
 	matrix.m[0][2] * position.z + matrix.m[0][3] * position.w,

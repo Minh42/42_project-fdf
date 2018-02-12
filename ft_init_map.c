@@ -6,11 +6,12 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 09:49:49 by mpham             #+#    #+#             */
-/*   Updated: 2018/02/12 18:04:44 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/12 19:10:37 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include "math3d.h"
 
 void	ft_init_img(t_env *e)
 {
@@ -79,10 +80,10 @@ void	ft_reset_map(t_env *e)
 	mlx_put_image_to_window(e->mlx, e->win, e->img.img_ptr, 0, 0);
 }
 
-void	ft_set_coord(t_env *e, mat4_t matrice)
+void	ft_set_coord(t_env *e, t_mat4 matrice)
 {
 	t_point	coord;
-	vec4_t	vecteur;
+	t_vec4	vecteur;
 
 	coord.i = 0;
 	while (coord.i < e->nb_line)

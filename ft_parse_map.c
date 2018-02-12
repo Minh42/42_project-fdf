@@ -6,11 +6,12 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/23 15:07:06 by minh              #+#    #+#             */
-/*   Updated: 2018/02/12 18:03:26 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/12 19:11:42 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include "math3d.h"
 
 int		ft_count_line(char *map)
 {
@@ -118,12 +119,14 @@ void	ft_parse_map(t_env *e, char **argv)
 	int			***map;
 	int			***map_buffer;
 
-	if (!(e->map = (int ***)malloc(e->nb_line * sizeof(int **))) ||
-			!(e->map_buffer = (int ***)malloc(e->nb_line * sizeof(int **))))
+	if (!(map = (int ***)malloc(e->nb_line * sizeof(int **))) ||
+			!(map_buffer = (int ***)malloc(e->nb_line * sizeof(int **))))
 	{
 		ft_putstr("malloc failed");
 		exit(EXIT_FAILURE);
 	}
+	e->map = map;
+	e->map_buffer = map_buffer;
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 	{

@@ -6,7 +6,7 @@
 #    By: mpham <mpham@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 12:55:31 by cmace             #+#    #+#              #
-#    Updated: 2018/02/12 18:22:07 by mpham            ###   ########.fr        #
+#    Updated: 2018/02/12 19:13:13 by mpham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,12 +15,12 @@ NAME = fdf
 
 # COMPILATION FLAGS
 CC = gcc
-FLAGS = -g -Wall -fsanitize=address
+FLAGS = -g -Wall -fsanitize=address -pedantic -std=c89 #-Wextra -Werror
 ADDFLAGS =
 
 # DIRECTORIES
 LIBFT_DIR = libft
-MLIBX_DIR = minilibx
+MLIBX_DIR = minilibx_macos
 
 # SOURCES
 SRC = \

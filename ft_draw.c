@@ -6,11 +6,12 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 09:55:51 by mpham             #+#    #+#             */
-/*   Updated: 2018/02/12 11:49:06 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/12 18:28:16 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include "math3d.h"
 
 void	ft_draw_horizontal(t_env *e)
 {

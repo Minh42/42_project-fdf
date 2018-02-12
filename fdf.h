@@ -6,7 +6,7 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:53:40 by minh              #+#    #+#             */
-/*   Updated: 2018/02/12 18:18:17 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/12 19:06:50 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 # define FDF_H
 
 # include <math.h>
-# include "mlx.h"
 # include "libft/libft.h"
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <string.h>
+# include <mlx.h>
 # include "math3d.h"
 
 # define WIN_WIDTH 800
@@ -59,12 +59,12 @@ typedef	struct		s_color
 
 typedef	struct		s_matrice
 {
-	mat4_t			translate;
-	mat4_t			scale;
-	mat4_t			rotationx;
-	mat4_t			rotationy;
-	mat4_t			rotationz;
-	mat4_t			rotation;
+	t_mat4			translate;
+	t_mat4			scale;
+	t_mat4			rotationx;
+	t_mat4			rotationy;
+	t_mat4			rotationz;
+	t_mat4			rotation;
 }					t_matrice;
 
 typedef	struct		s_point
@@ -133,9 +133,9 @@ typedef	struct		s_env
 
 int					ft_checks(char **argv);
 int					ft_check_valid_filename(char **argv);
-int					ft_check_data_entry(char **argv, int fd);
-int					ft_check_data_validity(char **argv, int fd);
-int					ft_check_map_validity(char **argv, int fd);
+int					ft_check_data_entry(int fd);
+int					ft_check_data_validity(int fd);
+int					ft_check_map_validity(int fd);
 char				*ft_skip(char *str);
 void				ft_parse_map(t_env *e, char **argv);
 void				ft_get_coord(t_env *e, char *line);
@@ -146,7 +146,7 @@ void				ft_load_map(t_env *e);
 void				ft_reset_map(t_env *e);
 void				ft_redraw(t_env *e);
 void				ft_reset(t_env *e);
-void				ft_set_coord(t_env *e, mat4_t matrice);
+void				ft_set_coord(t_env *e, t_mat4 matrice);
 void				ft_draw_horizontal(t_env *e);
 void				ft_draw_vertical(t_env *e);
 void				ft_bresenham(t_env *e, t_coord *coord);
