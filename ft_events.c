@@ -6,7 +6,7 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 10:39:13 by mpham             #+#    #+#             */
-/*   Updated: 2018/02/12 17:25:49 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/12 18:15:08 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int		key_hook(int keycode, t_env *e)
 {
-	printf("key event %d\n", keycode);
 	if (keycode == EXIT)
 	{
 		mlx_destroy_image(e->mlx, e->img.img_ptr);

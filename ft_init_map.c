@@ -6,7 +6,7 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 09:49:49 by mpham             #+#    #+#             */
-/*   Updated: 2018/02/12 17:58:52 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/12 18:04:44 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	ft_print_dashboard(t_env *e)
 	mlx_string_put(e->mlx, e->win, 25, 15, 16777215, "Quit = ESC");
 	mlx_string_put(e->mlx, e->win, 25, 35, 16777215, "Move = < > ^ v");
 	mlx_string_put(e->mlx, e->win, 25, 55, 16777215, "Zoom = + OR -");
-	mlx_string_put(e->mlx, e->win, 25, 75, 16777215, "Alt = Page up OR Page down");
+	mlx_string_put(e->mlx, e->win, 25, 75, 16777215,
+	"Alt = Page up OR Page down");
 	mlx_string_put(e->mlx, e->win, 25, 95, 16777215, "Rx = W OR S");
 	mlx_string_put(e->mlx, e->win, 25, 115, 16777215, "Ry = A OR D");
 	mlx_string_put(e->mlx, e->win, 25, 135, 16777215, "Rz = Q OR E");
@@ -64,7 +65,7 @@ void	ft_reset_map(t_env *e)
 	t_matrice	m;
 
 	ft_init_img(e);
-	e->scale_z =  0;
+	e->scale_z = 0;
 	m.scale = m4_scaling(vec3(1, 1, 1));
 	m.rotationx = m4_rotationx(0.0 * PI / 180.0);
 	m.rotationy = m4_rotationy(0.0 * PI / 180.0);

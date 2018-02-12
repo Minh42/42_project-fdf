@@ -6,7 +6,7 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:53:40 by minh              #+#    #+#             */
-/*   Updated: 2018/02/12 17:49:51 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/12 18:18:17 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,9 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-# include <stdio.h>
 # include <unistd.h>
-# include <stdlib.h>
 # include <string.h>
-# include "math3D.h"
+# include "math3d.h"
 
 # define WIN_WIDTH 800
 # define WIN_HEIGHT 600
@@ -138,6 +136,7 @@ int					ft_check_valid_filename(char **argv);
 int					ft_check_data_entry(char **argv, int fd);
 int					ft_check_data_validity(char **argv, int fd);
 int					ft_check_map_validity(char **argv, int fd);
+char				*ft_skip(char *str);
 void				ft_parse_map(t_env *e, char **argv);
 void				ft_get_coord(t_env *e, char *line);
 void				ft_print_tab(t_env *e);

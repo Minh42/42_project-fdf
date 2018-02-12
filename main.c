@@ -6,11 +6,29 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 13:13:24 by minh              #+#    #+#             */
-/*   Updated: 2018/02/12 17:27:40 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/12 18:02:25 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+char	*ft_skip(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i] != '\0' && str[i] != ',')
+	{
+		i++;
+	}
+	if (str[i] == ',')
+		i++;
+	if (str[i] == '0')
+		i++;
+	if (str[i] == 'x')
+		i++;
+	return (&str[i]);
+}
 
 void	ft_redraw(t_env *e)
 {

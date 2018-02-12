@@ -6,7 +6,7 @@
 /*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/23 15:07:06 by minh              #+#    #+#             */
-/*   Updated: 2018/02/12 17:52:55 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/12 18:03:26 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,24 +86,6 @@ void	ft_print_tab(t_env *e)
 	}
 }
 
-char	*ft_skip(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i] != '\0' && str[i] != ',')
-	{
-		i++;
-	}
-	if (str[i] == ',')
-		i++;
-	if (str[i] == '0')
-		i++;
-	if (str[i] == 'x')
-		i++;
-	return (&str[i]);
-}
-
 void	ft_get_coord(t_env *e, char *line)
 {
 	static	int	i;
@@ -122,7 +104,7 @@ void	ft_get_coord(t_env *e, char *line)
 		e->map[i][j][1] = i * TILE_HEIGHT;
 		e->map[i][j][2] = ft_getnbr(str[j]);
 		e->map[i][j][3] = 1;
-		e->map[i][j][4] = ft_strchr(str[j], ',') ? 
+		e->map[i][j][4] = ft_strchr(str[j], ',') ?
 		ft_atoi_base(ft_skip(str[j]), 16) : (int)ft_strtol("FFFFFF");
 		j++;
 	}
@@ -136,14 +118,12 @@ void	ft_parse_map(t_env *e, char **argv)
 	int			***map;
 	int			***map_buffer;
 
-	if (!(map = (int ***)malloc(e->nb_line * sizeof(int **))) ||
-			!(map_buffer = (int ***)malloc(e->nb_line * sizeof(int **))))
+	if (!(e->map = (int ***)malloc(e->nb_line * sizeof(int **))) ||
+			!(e->map_buffer = (int ***)malloc(e->nb_line * sizeof(int **))))
 	{
 		ft_putstr("malloc failed");
 		exit(EXIT_FAILURE);
 	}
-	e->map = map;
-	e->map_buffer = map_buffer;
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 	{
