@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: minh <minh@student.42.fr>                  +#+  +:+       +#+         #
+#    By: mpham <mpham@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 12:55:31 by cmace             #+#    #+#              #
-#    Updated: 2018/02/06 10:50:03 by minh             ###   ########.fr        #
+#    Updated: 2018/02/12 13:25:00 by mpham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC = \
 			main.c\
 			ft_parse_map.c \
 			m_functions.c \
+			m_functions2.c \
 			ft_bresenham.c \
 			ft_init_map.c \
 			ft_draw.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_checks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minh <mpham@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 10:29:33 by minh              #+#    #+#             */
-/*   Updated: 2018/02/06 14:41:51 by minh             ###   ########.fr       */
+/*   Updated: 2018/02/12 13:05:13 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		ft_check_valid_filename(char **argv)
 {
 	char	*str;
 	char	*ext;
-	char 	*ret;
+	char	*ret;
 
 	str = argv[1];
 	ext = ".fdf";
@@ -27,72 +27,40 @@ int		ft_check_valid_filename(char **argv)
 		return (-1);
 	}
 	else
+	{
 		if (ft_strcmp(ret, ext) != 0)
 		{
 			ft_putstr("incorrect filename\n");
 			return (-1);
 		}
+	}
 	return (0);
 }
 
-int     ft_check_data_entry(char **argv)
+int		ft_check_data_entry(char **argv, int fd)
 {
-	int		fd;
-    int     ret;
-    char	*line;
+	int		ret;
+	char	*line;
 
-    fd = open(argv[1], O_RDONLY);
-    if (fd == -1)
-	{
-		ft_putstr("open() failed\n");
-		return(-1);
-	}
-    ret = get_next_line(fd, &line);
+	ret = get_next_line(fd, &line);
 	if (ret == 0 || ret == -1)
 	{
 		ft_putstr("no data found\n");
 		return (-1);
 	}
 	while (get_next_line(fd, &line) > 0)
-	{	
-	}
-    free(line);
-	if (close(fd) == -1)
 	{
-		ft_putstr("close() failed\n");
-		return(-1);
 	}
-    return (0);
-}
-
-int		ft_isxdigit(char *str)
-{
-	int		i;
-	char 	*hex;
-
-	i = 0;
-	if (ft_strlen(str) >= 10)
-	{
-		hex = ft_strsub(str, ft_strlen(str) - 6, 6);
-		if (ft_strspn(hex, "0123456789abcdefABCDEF") == 6 && ft_strstr(str, ",0x"))
-		return (1);
-	}
+	free(line);
 	return (0);
 }
 
-int     ft_check_data_validity(char **argv)
+int		ft_check_data_validity(char **argv, int fd)
 {
-    int     i;
-	int		fd;
-	char 	**str;
-    char	*line;
+	int		i;
+	char	**str;
+	char	*line;
 
-    fd = open(argv[1], O_RDONLY);
-    if (fd == -1)
-	{
-		ft_putstr("open() failed\n");
-		return (-1);
-	}
 	while (get_next_line(fd, &line))
 	{
 		i = 0;
@@ -108,26 +76,14 @@ int     ft_check_data_validity(char **argv)
 		}
 	}
 	free(line);
-	if (close(fd) == -1)
-	{
-		ft_putstr("close() failed\n");
-		return(-1);
-	}
-    return (0);
+	return (0);
 }
 
-int     ft_check_map_validity(char **argv)
+int		ft_check_map_validity(char **argv, int fd)
 {
-	int		fd;
-    char	*line;
-    int		len;
+	char	*line;
+	int		len;
 
-    fd = open(argv[1], O_RDONLY);
-    if (fd == -1)
-	{
-		ft_putstr("open() failed\n");
-		return (-1);
-	}
 	get_next_line(fd, &line);
 	len = ft_count_words(line);
 	while (get_next_line(fd, &line))
@@ -139,23 +95,31 @@ int     ft_check_map_validity(char **argv)
 		}
 	}
 	free(line);
+	return (0);
+}
+
+int		ft_checks(char **argv)
+{
+	int		fd;
+
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+	{
+		ft_putstr("open() failed\n");
+		return (-1);
+	}
+	if (ft_check_valid_filename(argv) == -1)
+		return (-1);
+	if (ft_check_data_entry(argv, fd) == -1)
+		return (-1);
+	if (ft_check_data_validity(argv, fd) == -1)
+		return (-1);
+	if (ft_check_map_validity(argv, fd) == -1)
+		return (-1);
 	if (close(fd) == -1)
 	{
 		ft_putstr("close() failed\n");
-		return(-1);
+		return (-1);
 	}
-    return (0);
-}
-
-int	    ft_checks(char **argv)
-{
-	if (ft_check_valid_filename(argv) == -1)
-		return (-1);
-	if (ft_check_data_entry(argv) == -1)
-		return (-1);
-	if (ft_check_data_validity(argv) == -1)
-		return (-1);
-	if (ft_check_map_validity(argv) == -1)
-		return (-1);
 	return (0);
 }

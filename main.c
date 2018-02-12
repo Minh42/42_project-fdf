@@ -3,19 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 13:13:24 by minh              #+#    #+#             */
-/*   Updated: 2018/02/07 11:49:42 by minh             ###   ########.fr       */
+/*   Updated: 2018/02/12 17:27:40 by mpham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include "math3D.h"
+
+void	ft_redraw(t_env *e)
+{
+	mlx_clear_window(e->mlx, e->win);
+	ft_load_map(e);
+}
+
+void	ft_reset(t_env *e)
+{
+	mlx_clear_window(e->mlx, e->win);
+	e->angle_x = 0;
+	e->angle_y = 0;
+	e->angle_z = 0;
+	e->offset_x = 0;
+	e->offset_y = 0;
+	e->zoom = 0;
+	ft_reset_map(e);
+}
 
 int		main(int argc, char **argv)
 {
-	t_env   e;
+	t_env	e;
 
 	if (argc != 2)
 	{
@@ -33,7 +50,7 @@ int		main(int argc, char **argv)
 	e.nb_col = ft_count_column(argv[1]);
 	ft_parse_map(&e, argv);
 	ft_load_map(&e);
-	mlx_key_hook(e.win, key_hook, &e);
+	mlx_hook(e.win, 2, 0, key_hook, &e);
 	mlx_loop(e.mlx);
 	return (0);
 }
