@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/23 15:07:06 by minh              #+#    #+#             */
-/*   Updated: 2018/02/12 19:11:42 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/13 09:55:25 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include "math3d.h"
 
 int		ft_count_line(char *map)
 {

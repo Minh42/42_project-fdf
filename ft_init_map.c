@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 09:49:49 by mpham             #+#    #+#             */
-/*   Updated: 2018/02/12 19:10:37 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/13 11:25:55 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include "math3d.h"
 
 void	ft_init_img(t_env *e)
 {
 	e->img.img_ptr = mlx_new_image(e->mlx, WIN_WIDTH, WIN_HEIGHT);
-	e->img.data = (int *)mlx_get_data_addr(e->img.img_ptr, &e->img.bpp,
+	e->img.data = mlx_get_data_addr(e->img.img_ptr, &e->img.bpp,
 	&e->img.sizeline, &e->img.endian);
 }
 
@@ -66,7 +65,6 @@ void	ft_reset_map(t_env *e)
 	t_matrice	m;
 
 	ft_init_img(e);
-	e->scale_z = 0;
 	m.scale = m4_scaling(vec3(1, 1, 1));
 	m.rotationx = m4_rotationx(0.0 * PI / 180.0);
 	m.rotationy = m4_rotationy(0.0 * PI / 180.0);
@@ -78,6 +76,7 @@ void	ft_reset_map(t_env *e)
 	ft_draw_horizontal(e);
 	ft_draw_vertical(e);
 	mlx_put_image_to_window(e->mlx, e->win, e->img.img_ptr, 0, 0);
+	ft_print_dashboard(e);
 }
 
 void	ft_set_coord(t_env *e, t_mat4 matrice)

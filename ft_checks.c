@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_checks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 10:29:33 by minh              #+#    #+#             */
-/*   Updated: 2018/02/12 18:44:23 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/13 09:55:11 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include "math3d.h"
 
 int		ft_check_valid_filename(char **argv)
 {

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpham <mpham@student.42.fr>                +#+  +:+       +#+         #
+#    By: minh <minh@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/11/07 12:55:31 by cmace             #+#    #+#              #
-#    Updated: 2018/02/12 19:13:13 by mpham            ###   ########.fr        #
+#    Created: 2017/11/07 12:55:31 by mpham             #+#    #+#              #
+#    Updated: 2018/02/13 11:13:16 by minh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = fdf
 
 # COMPILATION FLAGS
 CC = gcc
-FLAGS = -g -Wall -fsanitize=address -pedantic -std=c89 #-Wextra -Werror
+FLAGS = -g -Wall -Wextra -Werror -fsanitize=address -pedantic -std=c89
 ADDFLAGS =
 
 # DIRECTORIES
@@ -32,7 +32,7 @@ SRC = \
 			ft_init_map.c \
 			ft_draw.c \
 			ft_events.c \
-			ft_checks.c
+			ft_checks.c \
 
 OBJ = $(SRC:.c=.o)
 

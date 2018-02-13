@@ -3,72 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   m_functions2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 13:23:47 by mpham             #+#    #+#             */
-/*   Updated: 2018/02/12 19:09:44 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/13 09:54:03 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include "math3d.h"
 
 t_mat4	m4_translation(t_vec3 offset)
 {
-	t_mat4	matrice;
+	t_mat4	matrix;
 
-	matrice = mat4((t_matrix)
-		{1, 0, 0, offset.x,
-		0, 1, 0, offset.y,
-		0, 0, 1, offset.z,
-		0, 0, 0, 1});
-	return (matrice);
+	matrix = m4_identity();
+	matrix.data[0][3] = offset.x;
+	matrix.data[1][3] = offset.y;
+	matrix.data[2][3] = offset.z;
+	return (matrix);
 }
 
 t_mat4	m4_scaling(t_vec3 scale)
 {
-	t_mat4	matrice;
+	t_mat4	matrix;
 
-	matrice = mat4((t_matrix)
-		{scale.x, 0, 0, 0,
-		0, scale.y, 0, 0,
-		0, 0, scale.z, 0,
-		0, 0, 0, 1});
-	return (matrice);
+	matrix = m4_identity();
+	matrix.data[0][0] = scale.x;
+	matrix.data[1][1] = scale.y;
+	matrix.data[2][2] = scale.z;
+	return (matrix);	
 }
 
 t_mat4	m4_rotationx(float angle)
 {
-	t_mat4	matrice;
+	t_mat4	matrix;
 
-	matrice = mat4((t_matrix)
-		{1, 0, 0, 0,
-		0, cos(angle), -sin(angle), 0,
-		0, sin(angle), cos(angle), 0,
-		0, 0, 0, 1});
-	return (matrice);
+	matrix = m4_identity();
+	matrix.data[1][1] = cos(angle);
+	matrix.data[1][2] = sin(angle);
+	matrix.data[2][1] = -sin(angle);
+	matrix.data[2][2] = cos(angle);
+	return (matrix);
 }
 
 t_mat4	m4_rotationy(float angle)
 {
-	t_mat4	matrice;
+	t_mat4	matrix;
 
-	matrice = mat4((t_matrix)
-		{cos(angle), 0, sin(angle), 0,
-		0, 1, 0, 0,
-		-sin(angle), 0, cos(angle), 0,
-		0, 0, 0, 1});
-	return (matrice);
+	matrix = m4_identity();
+	matrix.data[0][0] = cos(angle);
+	matrix.data[2][0] = sin(angle);
+	matrix.data[0][2] = -sin(angle);
+	matrix.data[2][2] = cos(angle);
+	return (matrix);
 }
 
 t_mat4	m4_rotationz(float angle)
 {
-	t_mat4	matrice;
+	t_mat4	matrix;
 
-	matrice = mat4((t_matrix)
-		{cos(angle), -sin(angle), 0, 0,
-		sin(angle), cos(angle), 0, 0,
-		0, 0, 1, 0,
-		0, 0, 0, 1});
-	return (matrice);
+	matrix = m4_identity();
+	matrix.data[0][0] = cos(angle);
+	matrix.data[0][1] = sin(angle);
+	matrix.data[1][0] = -sin(angle);
+	matrix.data[1][1] = cos(angle);
+	return (matrix);	
 }

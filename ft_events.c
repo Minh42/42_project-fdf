@@ -3,30 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_events.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 10:39:13 by mpham             #+#    #+#             */
-/*   Updated: 2018/02/12 18:28:22 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/13 11:10:42 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include "math3d.h"
 
 int		key_hook(int keycode, t_env *e)
 {
 	if (keycode == EXIT)
 	{
 		mlx_destroy_image(e->mlx, e->img.img_ptr);
+		ft_free_tab(e);
 		exit(EXIT_SUCCESS);
 	}
 	if (keycode == CLEAR)
 		mlx_clear_window(e->mlx, e->win);
 	if (keycode == RESET)
-	{
-		mlx_clear_window(e->mlx, e->win);
 		ft_reset(e);
-	}
 	move_hook(keycode, e);
 	zoom_hook(keycode, e);
 	rotate_hook(keycode, e);

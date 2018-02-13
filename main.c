@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 13:13:24 by minh              #+#    #+#             */
-/*   Updated: 2018/02/12 18:28:45 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/13 11:30:44 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,29 @@ void	ft_reset(t_env *e)
 	e->offset_x = 0;
 	e->offset_y = 0;
 	e->zoom = 0;
+	e->scale_z = 0;
 	ft_reset_map(e);
+}
+
+void	ft_free_tab(t_env *e)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < e->nb_line)
+	{
+		j = 0;
+		while (j < e->nb_col)
+		{
+			free(e->map[i][j]);
+			free(e->map_buffer[i][j]);
+			j++;
+		}
+		i++;
+	}
+	free(e->map);
+	free(e->map_buffer);
 }
 
 int		main(int argc, char **argv)

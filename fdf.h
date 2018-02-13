@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:53:40 by minh              #+#    #+#             */
-/*   Updated: 2018/02/12 19:06:50 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/13 11:24:04 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <string.h>
-# include <mlx.h>
+# include "mlx.h"
 # include "math3d.h"
 
 # define WIN_WIDTH 800
@@ -49,6 +49,7 @@
 # define COLOR_RED 15
 # define COLOR_GREEN 5
 # define COLOR_BLUE 11
+# define PERSPECTIVE 35
 
 typedef	struct		s_color
 {
@@ -65,6 +66,7 @@ typedef	struct		s_matrice
 	t_mat4			rotationy;
 	t_mat4			rotationz;
 	t_mat4			rotation;
+	t_mat4			projection;
 }					t_matrice;
 
 typedef	struct		s_point
@@ -104,7 +106,7 @@ typedef	struct		s_algo
 typedef	struct		s_img
 {
 	void			*img_ptr;
-	int				*data;
+	char			*data;
 	int				sizeline;
 	int				bpp;
 	int				endian;
@@ -160,5 +162,7 @@ void				rotate_hook(int keycode, t_env *e);
 void				zoom_hook(int keycode, t_env *e);
 void				color_hook(int keycode, t_env *e);
 t_color				ft_color_converter(t_env *e, int hexvalue);
+void				ft_print_dashboard(t_env *e);
+void				ft_free_tab(t_env *e);
 
 #endif

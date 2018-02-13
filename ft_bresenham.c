@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bresenham.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpham <mpham@student.42.fr>                +#+  +:+       +#+        */
+/*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 11:31:17 by mpham             #+#    #+#             */
-/*   Updated: 2018/02/12 18:28:03 by mpham            ###   ########.fr       */
+/*   Updated: 2018/02/13 11:27:20 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include "math3d.h"
 
 t_color	ft_color_converter(t_env *e, int hexvalue)
 {
@@ -32,10 +31,16 @@ t_color	ft_color_converter(t_env *e, int hexvalue)
 void	ft_fill_pixel(t_env *e, int x1, int y1, t_coord *coord)
 {
 	int		new_color;
+	t_color	rgbcolor;
 
 	new_color = mlx_get_color_value(e->mlx, coord->color);
+	rgbcolor = ft_color_converter(e, new_color);
 	if (x1 >= 0 && y1 >= 0 && x1 < WIN_WIDTH && y1 < WIN_HEIGHT)
-		((int*)e->img.data)[(y1 * WIN_WIDTH) + x1] = new_color;
+	{
+  		e->img.data[y1 * e->img.sizeline + x1 * e->img.bpp / 8 ] = rgbcolor.r;
+  		e->img.data[y1 * e->img.sizeline + x1 * e->img.bpp / 8 + 1] = rgbcolor.g;
+  		e->img.data[y1 * e->img.sizeline + x1 * e->img.bpp / 8 + 2] = rgbcolor.b;
+	}	
 }
 
 void	ft_bresenham1(t_env *e, t_algo *b, t_coord *coord)
