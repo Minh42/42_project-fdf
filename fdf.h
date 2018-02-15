@@ -6,7 +6,7 @@
 /*   By: minh <minh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 18:53:40 by minh              #+#    #+#             */
-/*   Updated: 2018/02/13 11:24:04 by minh             ###   ########.fr       */
+/*   Updated: 2018/02/13 11:53:24 by minh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include "mlx.h"
 # include "math3d.h"
 
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
+# define WIN_WIDTH 1200
+# define WIN_HEIGHT 800
 # define TILE_WIDTH 25
 # define TILE_HEIGHT 25
 # define PI 3.14159265359
@@ -38,8 +38,8 @@
 # define MOVE_LEFT 123
 # define ZOOM_IN 69
 # define ZOOM_OUT 78
-# define ZOOM_UP 116
-# define ZOOM_DOWN 121
+# define ZOOM_UP 35
+# define ZOOM_DOWN 31
 # define ROTATE_UP 13
 # define ROTATE_DOWN 1
 # define ROTATE_RIGHT 2
@@ -49,7 +49,6 @@
 # define COLOR_RED 15
 # define COLOR_GREEN 5
 # define COLOR_BLUE 11
-# define PERSPECTIVE 35
 
 typedef	struct		s_color
 {
